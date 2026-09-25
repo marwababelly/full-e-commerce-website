@@ -1,0 +1,107 @@
+.cartItemRow {
+  display: grid;
+  grid-template-columns: 2.5fr 1.2fr 1.2fr 1fr;
+  align-items: center;
+  padding: 24px 40px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0px 1px 13px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
+  transition: all 0.2s ease-in-out;
+}
+
+.cartItemRow:hover {
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.productCol {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.imgWrapper {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productImg {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.removeBtn {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  background: #db4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.imgWrapper:hover .removeBtn {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.productTitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+}
+
+.priceCol,
+.subtotalCol {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+}
+
+.quantityCol {
+  display: flex;
+  align-items: center;
+}
+
+.quantityBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1.5px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  padding: 6px 12px;
+  width: 72px;
+}
+
+.qtyBtn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #000000;
+  padding: 0;
+  line-height: 1;
+}
+
+.qtyBtn:hover {
+  color: #db4444;
+}
+
+.qtyNumber {
+  font-size: 16px;
+  font-weight: 400;
+}

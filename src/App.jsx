@@ -1,12 +1,7 @@
-import { useState } from 'react'
+import CartPage from "./pages/CartPage";
 
 function App() {
-
-  return (
-    <>
-      <div>Full e-commerce website</div>
-    </>
-  )
+  return <CartPage />;
 }
 
-export default App
+export default App;
