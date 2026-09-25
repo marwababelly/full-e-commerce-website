@@ -1,12 +1,11 @@
-import { useState } from 'react'
+import Cart from "./features/cart/Cart";
 
 function App() {
-
   return (
-    <>
-      <div>Full e-commerce website</div>
-    </>
-  )
+    <div>
+      <Cart />
+    </div>
+  );
 }
 
-export default App
+export default App;
