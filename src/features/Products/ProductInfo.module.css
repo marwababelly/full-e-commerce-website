@@ -1,0 +1,24 @@
+.wrapper { display: flex; flex-direction: column; }
+.title { font-size: 24px; font-weight: 600; margin: 0 0 12px; }
+.meta { display: flex; align-items: center; gap: 12px; font-size: 13px; color: #5F5F5F; margin-bottom: 16px; flex-wrap: wrap; }
+.stars { color: #DB4444; }
+.inStock { color: #00A651; font-weight: 600; }
+.outStock { color: #DB4444; font-weight: 600; }
+.price { font-size: 22px; font-weight: 600; display: flex; gap: 10px; align-items: baseline; margin-bottom: 16px; }
+.oldPrice { font-size: 14px; color: #5F5F5F; text-decoration: line-through; font-weight: 400; }
+.description { font-size: 14px; color: #5F5F5F; line-height: 1.6; margin-bottom: 16px; }
+.divider { border: none; border-top: 1px solid #E8E8E8; margin: 16px 0; }
+.actionsRow { display: flex; align-items: center; gap: 12px; margin: 16px 0; flex-wrap: wrap; }
+.buyBtn {
+  background: #DB4444; color: #fff; border: none; border-radius: 4px;
+  padding: 0 32px; height: 44px; font-weight: 600; cursor: pointer;
+}
+.wishlistBtn {
+  width: 44px; height: 44px; border: 1px solid #E8E8E8; border-radius: 4px;
+  background: transparent; cursor: pointer; font-size: 18px;
+}
+
+/* Responsive: buy button takes full available width on small screens */
+@media (max-width: 480px) {
+  .buyBtn { flex: 1; min-width: 140px; }
+}
