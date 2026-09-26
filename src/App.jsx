@@ -1,12 +1,8 @@
-import { useState } from 'react'
+import LoginPage from "./features/auth/pages/LoginPage/LoginPage";
 
 function App() {
-
-  return (
-    <>
-      <div>Full e-commerce website</div>
-    </>
-  )
+  return <LoginPage />;
+  
 }
 
-export default App
+export default App;

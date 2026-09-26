@@ -1,0 +1,44 @@
+.loginPage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+.illustration {
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.illustration img {
+    width: 100%;
+    max-width: 700px;
+    display: block;
+}
+
+.formContainer {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+@media (max-width: 768px) {
+    .loginPage {
+        flex-direction: column;
+    }
+    .illustration {
+        width: 100%;
+        padding: 30px 20px;
+    }
+    .illustration img {
+        max-width: 500px;
+    }
+    .formContainer {
+        width: 100%;
+        padding: 30px 20px 50px;
+    }
+}

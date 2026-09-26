@@ -1,0 +1,82 @@
+.topBar {
+    max-width: 1200px;
+    margin: 0 auto 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    color: #777;
+    margin: 0;
+}
+
+.breadcrumb span {
+    margin: 0 8px;
+    color: #999;
+}
+
+.welcome {
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+}
+
+.welcome span {
+    color: #db4444;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .topBar {
+        margin-bottom: 40px;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    .breadcrumb,
+    .welcome {
+        font-size: 13px;
+    }
+    .topBar {
+        flex-direction: column;
+    }
+}
+
+.accountPage {
+    width: 100%;
+    padding: 80px 5%;
+    background-color: #fff;
+}
+
+.accountContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 80px;
+}
+
+
+/* Responsive */
+
+@media (max-width: 992px) {
+    .accountPage {
+        padding: 60px 4%;
+    }
+    .accountContent {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .accountPage {
+        padding: 40px 20px;
+    }
+    .accountContent {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
