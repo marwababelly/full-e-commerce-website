@@ -1,0 +1,3 @@
+/* ProductDetailsPage.module.css */
+.page { max-width: 1180px; margin: 0 auto; padding: 24px; }
+.topSection { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; }

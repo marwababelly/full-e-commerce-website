@@ -1,0 +1,4 @@
+/* RelatedProducts.module.css */
+.wrapper { margin: 40px 0; }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 16px; }
+.placeholder { background: #FAFAFA; border-radius: 4px; padding: 20px; text-align: center; }
