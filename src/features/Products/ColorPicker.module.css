@@ -1,0 +1,6 @@
+/* ColorPicker.module.css */
+.wrapper { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+.label { font-weight: 500; }
+.colors { display: flex; gap: 8px; }
+.dot { width: 24px; height: 24px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; }
+.active { border-color: #000; }

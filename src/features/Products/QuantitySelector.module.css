@@ -1,0 +1,4 @@
+/* QuantitySelector.module.css */
+.wrapper { display: flex; align-items: center; border: 1px solid #ccc; width: fit-content; }
+.btn { width: 32px; height: 32px; background: #f5f5f5; border: none; cursor: pointer; font-size: 18px; }
+.value { width: 36px; text-align: center; }

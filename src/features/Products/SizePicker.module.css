@@ -1,0 +1,5 @@
+/* SizePicker.module.css */
+.wrapper { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+.sizes { display: flex; gap: 8px; }
+.btn { width: 36px; height: 36px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
+.active { background: #DB4444; color: #fff; border-color: #DB4444; }
