@@ -1,8 +1,7 @@
-import CartPage from "./pages/CartPage";
+import Router from "./app/Router";
 
 function App() {
-  return <CartPage />;
+  return <Router />;
 }
 
-export default App;
 export default App;

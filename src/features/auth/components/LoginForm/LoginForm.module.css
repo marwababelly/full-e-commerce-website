@@ -1,0 +1,52 @@
+.loginForm {
+    width: 100%;
+    max-width: 370px;
+}
+
+.loginForm h1 {
+    font-size: 36px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 40px;
+}
+
+.input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #999;
+    padding: 12px 0;
+    margin-bottom: 30px;
+    font-size: 16px;
+    outline: none;
+}
+
+.input::placeholder {
+    color: #777;
+}
+
+.loginButton {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    background-color: #db4444;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.forgotButton {
+    display: block;
+    margin: 0 auto;
+    border: none;
+    background: none;
+    color: #db4444;
+    font-size: 16px;
+    cursor: pointer;
+}
