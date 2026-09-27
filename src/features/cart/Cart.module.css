@@ -1,0 +1,50 @@
+.page {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  background: #00b341;
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  transition: all 0.3s;
+}
+
+.toast.err {
+  background: #db4444;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast.hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-100px);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
