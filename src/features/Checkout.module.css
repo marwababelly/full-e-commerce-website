@@ -1,0 +1,226 @@
+.checkoutContainer {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  background-color: #ffffff;
+  font-family: inherit;
+}
+
+.checkoutTitle {
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-bottom: 48px;
+  color: #000000;
+}
+
+.checkoutLayout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 80px;
+}
+
+/* القسم الأيسر: Billing Details */
+.billingSection {
+  flex: 1;
+  max-width: 470px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+.formGroup label {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.4);
+  margin-bottom: 8px;
+}
+
+.formGroup label span {
+  color: #db4444;
+}
+
+.inputField {
+  height: 50px;
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 4px;
+  padding: 0 16px;
+  font-size: 16px;
+  outline: none;
+  color: #000000;
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.checkboxInput {
+  width: 24px;
+  height: 24px;
+  accent-color: #db4444;
+  cursor: pointer;
+}
+
+.checkboxLabel {
+  font-size: 16px;
+  color: #000000;
+  cursor: pointer;
+}
+
+/* القسم الأيمن: Order Summary */
+.orderSection {
+  width: 527px;
+  padding-top: 32px;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.itemInfo {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.itemImage {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.itemName {
+  font-size: 16px;
+  color: #000000;
+}
+
+.itemPrice {
+  font-size: 16px;
+  color: #000000;
+}
+
+/* ملخص الحساب */
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  font-size: 16px;
+  color: #000000;
+}
+
+.totalRow {
+  border-bottom: none;
+  margin-bottom: 32px;
+}
+
+/* خيارات الدفع */
+.paymentOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.paymentOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
+  color: #000000;
+  cursor: pointer;
+}
+
+.radioInput {
+  width: 20px;
+  height: 20px;
+  accent-color: #000000;
+  cursor: pointer;
+}
+
+.bankIcons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.bankIcon {
+  height: 18px;
+  object-fit: contain;
+}
+
+/* نموذج الكوبون */
+.couponGroup {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.couponInput {
+  flex: 1;
+  height: 56px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  padding: 0 24px;
+  font-size: 16px;
+  outline: none;
+}
+
+.couponBtn {
+  height: 56px;
+  padding: 0 48px;
+  background-color: #db4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.placeOrderBtn {
+  width: 190px;
+  height: 56px;
+  background-color: #db4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.placeOrderBtn:hover {
+  background-color: #e03131;
+}
+
+/* التجاوب مع الشاشات الصغيرة */
+@media (max-width: 992px) {
+  .checkoutLayout {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .billingSection, .orderSection {
+    width: 100%;
+    max-width: 100%;
+  }
+}

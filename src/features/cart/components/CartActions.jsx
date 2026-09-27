@@ -1,14 +1,13 @@
-import styles   from "./CartActions.module.css";
-const CartActions =({onBack,onUpdate})=>{
-  return(
-    <div  className={styles.row}>
-    <button className={styles.btn} onClick={onBack}>
-      Return To Shop
-    </button>
-    <button className={styles.btn} onClick={onUpdate}>
-       Update Cart
-    </button>
+import React from 'react';
+import styles from './CartActions.module.css';
+
+const CartActions = () => {
+  return (
+    <div className={styles.actionsContainer}>
+      <button className={styles.btnOutline}>Return To Shop</button>
+      <button className={styles.btnOutline}>Update Cart</button>
     </div>
   );
 };
+
 export default CartActions;
