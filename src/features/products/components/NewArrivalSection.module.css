@@ -1,0 +1,132 @@
+.section {
+  padding: 80px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30px;
+  grid-template-areas:
+    "large large wide wide"
+    "large large small1 small2";
+}
+
+.card {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #0d0d0d;
+  min-height: 284px;
+}
+
+.large {
+  grid-area: large;
+  min-height: 600px;
+}
+
+.wide {
+  grid-area: wide;
+}
+
+.small {
+  min-height: 284px;
+}
+
+.small:nth-of-type(1) {
+  grid-area: small1;
+}
+
+.small:nth-of-type(2) {
+  grid-area: small2;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.85;
+}
+
+.overlay {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 8px;
+  color: #ffffff;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.large .title {
+  font-size: 24px;
+}
+
+.small .title {
+  font-size: 20px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #d4d4d4;
+  margin: 0;
+  max-width: 90%;
+}
+
+.shopNow {
+  margin-top: 8px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: underline;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.shopNow:hover {
+  color: #db4444;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+      "large large"
+      "wide wide"
+      "small1 small2";
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "large"
+      "wide"
+      "small1"
+      "small2";
+  }
+}
