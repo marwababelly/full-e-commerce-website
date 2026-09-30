@@ -1,0 +1,53 @@
+.section {
+  padding: 80px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.scroll {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 20px;
+  scrollbar-width: none;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex: 0 0 270px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.viewAllButton {
+  padding: 16px 48px;
+  background-color: #db4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.viewAllButton:hover {
+  background-color: #b83333;
+}

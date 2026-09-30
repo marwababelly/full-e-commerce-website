@@ -1,0 +1,57 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.bar {
+  display: inline-block;
+  width: 20px;
+  height: 40px;
+  background-color: #db4444;
+  border-radius: 4px;
+}
+
+.labelText {
+  color: #db4444;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 80px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 600;
+  color: #000000;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.center {
+  display: flex;
+  align-items: flex-end;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
