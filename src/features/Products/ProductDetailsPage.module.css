@@ -1,0 +1,8 @@
+.page { max-width: 1180px; margin: 0 auto; padding: 24px; }
+.topSection { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; }
+
+/* Responsive: stack Gallery and Info on smaller screens */
+@media (max-width: 860px) {
+  .topSection { grid-template-columns: 1fr; gap: 24px; }
+  .page { padding: 16px; }
+}

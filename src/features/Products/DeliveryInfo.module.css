@@ -1,0 +1,4 @@
+/* DeliveryInfo.module.css */
+.wrapper { border: 1px solid #E8E8E8; border-radius: 4px; }
+.row { display: flex; justify-content: space-between; align-items: center; padding: 16px; }
+.row + .row { border-top: 1px solid #E8E8E8; }
