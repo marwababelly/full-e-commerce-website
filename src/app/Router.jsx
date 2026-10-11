@@ -4,6 +4,7 @@ import Checkout from "../features/Checkout";
 import LoginPage from "../features/auth/pages/LoginPage/LoginPage";
 import AccountPage from "../features/auth/pages/AccountPage/AccountPage";
 import RegisterPage from "../features/auth/pages/Register/Register.jsx";
+import ContactPage from "../pages/ContactPage.jsx";
 
 function Router() {
   return (
@@ -13,6 +14,7 @@ function Router() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/account" element={<AccountPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/Contact" element={<ContactPage/>}/>
     </Routes>
   );
 }

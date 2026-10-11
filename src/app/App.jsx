@@ -8,6 +8,8 @@ import CartActions from "../features/cart/components/CartActions";
 import CouponForm from "../features/cart/components/CouponForm";
 import CartSummary from "../features/cart/components/CartSummary";
 import Checkout from "../features/checkout/Checkout";
+import ContactPage from "../pages/ContactPage.jsx";
+
 
 function CartPage() {
   const handleBack = () => {
@@ -65,6 +67,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<Checkout />} />
+              <Route path="/contact" element={<ContactPage/>}/>
       </Routes>
       <Footer />
     </>
