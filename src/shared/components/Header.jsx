@@ -57,17 +57,17 @@ const Header = () => {
               </button>
             </div>
 
-            <button type="button" className={styles.iconButton} aria-label="Wishlist">
+            <Link to="/wishlist" className={styles.iconButton} aria-label="Wishlist">
               ♡
-            </button>
+            </Link>
 
-            <button type="button" className={styles.iconButton} aria-label="Cart">
+            <Link to="/cart" className={styles.iconButton} aria-label="Cart">
               🛒
-            </button>
+            </Link>
 
-            <button type="button" className={styles.iconButton} aria-label="Account">
+            <Link to="/account" className={styles.iconButton} aria-label="Account">
               👤
-            </button>
+            </Link>
           </div>
         </div>
       </div>

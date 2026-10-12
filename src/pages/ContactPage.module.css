@@ -1,0 +1,165 @@
+.contactPageContainer {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  font-family: inherit;
+  background-color: #ffffff;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 80px;
+}
+
+.breadcrumb span {
+  color: #000000;
+}
+
+.contactLayout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+/* القسم الأيمن:   */
+.infoBox {
+  width: 340px;
+  background: #ffffff;
+  padding: 40px 35px;
+  box-shadow: 0px 1px 13px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.infoGroup {
+  margin-bottom: 32px;
+}
+
+.infoGroup:last-child {
+  margin-bottom: 0;
+}
+
+.infoHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.iconCircle {
+  width: 40px;
+  height: 40px;
+  background-color: #db4444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.infoHeader h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+  margin: 0;
+}
+
+.infoText {
+  font-size: 14px;
+  color: #000000;
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 32px 0;
+}
+
+/* القسم الأيسر*/
+.formBox {
+  flex: 1;
+  background: #ffffff;
+  padding: 40px;
+  box-shadow: 0px 1px 13px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.inputsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.inputField {
+  height: 50px;
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 4px;
+  padding: 0 16px;
+  font-size: 14px;
+  outline: none;
+  color: #000000;
+}
+
+.inputField::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.textareaField {
+  width: 100%;
+  height: 200px;
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 4px;
+  padding: 16px;
+  font-size: 14px;
+  outline: none;
+  resize: none;
+  color: #000000;
+  margin-bottom: 32px;
+  box-sizing: border-box;
+}
+
+.textareaField::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.submitBtnContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sendBtn {
+  width: 215px;
+  height: 56px;
+  background-color: #db4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sendBtn:hover {
+  background-color: #e03131;
+}
+
+@media (max-width: 992px) {
+  .contactLayout {
+    flex-direction: column;
+  }
+  .infoBox, .formBox {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .inputsGrid {
+    grid-template-columns: 1fr;
+  }
+}
