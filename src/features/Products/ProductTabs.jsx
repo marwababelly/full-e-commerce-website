@@ -5,25 +5,44 @@ function ProductTabs({ description }) {
   const [activeTab, setActiveTab] = useState("description");
 
   return (
-    <div className={styles.wrapper}>
+    <section className={styles.wrapper}>
       <div className={styles.tabHeaders}>
         <button
-          className={activeTab === "description" ? `${styles.tab} ${styles.active}` : styles.tab}
+          type="button"
+          className={
+            activeTab === "description"
+              ? `${styles.tab} ${styles.active}`
+              : styles.tab
+          }
           onClick={() => setActiveTab("description")}
         >
           Description
         </button>
+
         <button
-          className={activeTab === "reviews" ? `${styles.tab} ${styles.active}` : styles.tab}
+          type="button"
+          className={
+            activeTab === "reviews"
+              ? `${styles.tab} ${styles.active}`
+              : styles.tab
+          }
           onClick={() => setActiveTab("reviews")}
         >
           Reviews
         </button>
       </div>
+
       <div className={styles.content}>
-        {activeTab === "description" ? <p>{description}</p> : <p>Reviews coming soon...</p>}
+        {activeTab === "description" ? (
+          <p>{description}</p>
+        ) : (
+          <div>
+            <h3>Customer Reviews</h3>
+            <p>No customer reviews yet.</p>
+          </div>
+        )}
       </div>
-    </div>
+    </section>
   );
 }
 
