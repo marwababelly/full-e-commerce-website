@@ -4,6 +4,7 @@ import CountdownTimer from "./CountdownTimer";
 import ProductCard from "./ProductCard";
 import ArrowButton from "./ArrowButton";
 import styles from "./FlashSalesSection.module.css";
+import { Link } from "react-router-dom";
 
 const FlashSalesSection = ({ products, flashSaleEnd }) => {
   const scrollRef = useRef(null);
@@ -41,9 +42,9 @@ const FlashSalesSection = ({ products, flashSaleEnd }) => {
         </div>
 
         <div className={styles.buttonWrapper}>
-          <button type="button" className={styles.viewAllButton}>
+          <Link to="/products?filter=flash-sale" className={styles.viewAllButton}>
             View All Products
-          </button>
+          </Link>
         </div>
       </div>
     </section>

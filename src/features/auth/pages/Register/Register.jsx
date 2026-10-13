@@ -1,6 +1,6 @@
 import AuthNavbar from "../../components/AuthNavbar/AuthNavbar.jsx";
 import RegisterForm from "../../components/RegisterForm/RegisterForm.jsx";
-import registerIllustration from "../../../../assets/login-illustration.png";
+import registerIllustration from "../../assets/login-illustration.png";
 import styles from "./Register.module.css";
 
 function Register() {

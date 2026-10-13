@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import styles from "./HeroSection.module.css";
+import { Link } from "react-router-dom";
 
 const categories = [
-  "Woman's Fashion",
-  "Men's Fashion",
-  "Electronics",
-  "Home & Lifestyle",
-  "Medicine",
-  "Sports & Outdoor",
-  "Baby's & Toys",
-  "Groceries & Pets",
-  "Health & Beauty",
+  { name: "Woman's Fashion", filter: "fashion" },
+  { name: "Men's Fashion", filter: "fashion" },
+  { name: "Electronics", filter: "electronics" },
+  { name: "Home & Lifestyle", filter: "home" },
+  { name: "Medicine", filter: "medicine" },
+  { name: "Sports & Outdoor", filter: "sports" },
+  { name: "Baby's & Toys", filter: "toys" },
+  { name: "Groceries & Pets", filter: "pets" },
+  { name: "Health & Beauty", filter: "beauty" },
 ];
 
 const slides = [
@@ -54,12 +55,17 @@ const HeroSection = () => {
       <div className={styles.container}>
         <aside className={styles.sidebar}>
           <ul className={styles.categoryList}>
-            {categories.map((category) => (
-              <li key={category} className={styles.categoryItem}>
-                <span className={styles.categoryName}>{category}</span>
+          {categories.map((category) => (
+            <li key={category.name}>
+           <Link
+                to={`/products?filter=${category.filter}`}
+                className={styles.categoryItem}
+              >
+                <span className={styles.categoryName}>{category.name}</span>
                 <span className={styles.categoryArrow}>›</span>
-              </li>
-            ))}
+            </Link>
+            </li>
+          ))}
           </ul>
         </aside>
 
@@ -76,9 +82,9 @@ const HeroSection = () => {
                     {slide.brand}
                   </div>
                   <h2 className={styles.slideTitle}>{slide.title}</h2>
-                  <button type="button" className={styles.shopNow}>
-                    Shop Now →
-                  </button>
+                  <Link to="/products" className={styles.shopNow}>
+                         Shop Now →
+                  </Link>
                 </div>
                 <img
                   src={slide.image}

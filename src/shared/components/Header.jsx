@@ -5,7 +5,7 @@ const navLinks = [
   { to: "/", label: "Home" },
   { to: "/contact", label: "Contact" },
   { to: "/about", label: "About" },
-  { to: "/signup", label: "Sign Up" },
+  { to: "/register", label: "Sign Up" },
 ];
 
 const Header = () => {
@@ -15,7 +15,7 @@ const Header = () => {
         <div className={styles.topBarContent}>
           <p className={styles.promo}>
             Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!{" "}
-            <Link to="/shop" className={styles.promoLink}>
+            <Link to="/products" className={styles.promoLink}>
               ShopNow
             </Link>
           </p>
@@ -37,7 +37,9 @@ const Header = () => {
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
+                  isActive
+                    ? `${styles.navLink} ${styles.active}`
+                    : styles.navLink
                 }
               >
                 {link.label}
@@ -52,20 +54,36 @@ const Header = () => {
                 placeholder="What are you looking for?"
                 className={styles.searchInput}
               />
-              <button type="button" className={styles.searchButton} aria-label="Search">
+              <button
+                type="button"
+                className={styles.searchButton}
+                aria-label="Search"
+              >
                 🔍
               </button>
             </div>
 
-            <Link to="/wishlist" className={styles.iconButton} aria-label="Wishlist">
+            <Link
+              to="/wishlist"
+              className={styles.iconButton}
+              aria-label="Wishlist"
+            >
               ♡
             </Link>
 
-            <Link to="/cart" className={styles.iconButton} aria-label="Cart">
+            <Link
+              to="/cart"
+              className={styles.iconButton}
+              aria-label="Cart"
+            >
               🛒
             </Link>
 
-            <Link to="/account" className={styles.iconButton} aria-label="Account">
+            <Link
+              to="/account"
+              className={styles.iconButton}
+              aria-label="Account"
+            >
               👤
             </Link>
           </div>

@@ -55,3 +55,69 @@
   align-items: center;
   gap: 8px;
 }
+
+/* ============ RESPONSIVE ============ */
+
+@media (max-width: 1024px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .titleRow {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .left {
+    gap: 12px;
+    width: 100%;
+  }
+
+  .bar {
+    width: 14px;
+    height: 28px;
+  }
+
+  .labelText {
+    font-size: 14px;
+  }
+
+  .titleRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .title {
+    font-size: 22px;
+    letter-spacing: 0.02em;
+  }
+
+  .right {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .bar {
+    width: 12px;
+    height: 24px;
+  }
+
+  .labelText {
+    font-size: 13px;
+  }
+}
