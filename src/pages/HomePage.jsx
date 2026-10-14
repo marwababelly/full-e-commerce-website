@@ -20,7 +20,7 @@ const HomePage = () => {
 
   const flashSaleProducts = products.slice(0, 8);
   const bestSellingProducts = products.slice(4, 8);
-  const exploreProducts = products.slice(8, 16);
+  const exploreProducts = products;
 
   return (
     <div className={styles.page}>

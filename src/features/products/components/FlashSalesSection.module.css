@@ -46,6 +46,9 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
 }
 
 .viewAllButton:hover {
