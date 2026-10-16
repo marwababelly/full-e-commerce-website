@@ -1,6 +1,13 @@
 import { useState } from "react";
 import styles from "./Checkout.module.css";
 import { useOrder } from "./useOrder";
+import cartMockData from "../cart/components/cartMockData";
+
+const COUPONS = {
+  SAVE10: 10,
+  WELCOME: 15,
+  VIP20: 20,
+};
 
 const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("bank");
@@ -17,39 +24,59 @@ const Checkout = () => {
   });
 
   const [coupon, setCoupon] = useState("");
+  const [couponMsg, setCouponMsg] = useState("");
+  const [discount, setDiscount] = useState(0);
 
   const { placeOrder, loading, error, order } = useOrder();
 
-  const dummyItems = [
-    {
-      id: 1,
-      name: "LCD Monitor",
-      price: "$650",
-      image: "https://via.placeholder.com/54?text=Monitor",
-    },
-    {
-      id: 2,
-      name: "H1 Gamepad",
-      price: "$1100",
-      image: "https://via.placeholder.com/54?text=Gamepad",
-    },
-  ];
+  const items = cartMockData;
+
+  const subtotal = items.reduce(
+    (sum, item) => sum + item.price * item.count,
+    0
+  );
+  const shipping = 0;
+  const total = subtotal - discount + shipping;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleApplyCoupon = () => {
+    const code = coupon.trim().toUpperCase();
+
+    if (!code) {
+      setCouponMsg("Please enter a coupon code");
+      setDiscount(0);
+      return;
+    }
+
+    const percent = COUPONS[code];
+
+    if (percent) {
+      const value = (subtotal * percent) / 100;
+      setDiscount(value);
+      setCouponMsg(`✅ ${percent}% discount applied!`);
+    } else {
+      setDiscount(0);
+      setCouponMsg("❌ Invalid coupon code");
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
-      title: `Order from ${form.firstName} ${form.company}`,
+      title: `Order from ${form.firstName} ${form.company}`.trim(),
       body: `${form.street} ${form.apartment}, ${form.city} | ${form.phone} | ${form.email}`,
       userId: 1,
       payment: paymentMethod,
-      coupon,
-      items: dummyItems,
-      total: 1750,
+      coupon: coupon.trim().toUpperCase(),
+      discount,
+      items,
+      subtotal,
+      shipping,
+      total,
     };
 
     await placeOrder(data);
@@ -186,31 +213,44 @@ const Checkout = () => {
         </form>
 
         <div className={styles.orderSection}>
-          {dummyItems.map((item) => (
+          {items.map((item) => (
             <div key={item.id} className={styles.cartItem}>
               <div className={styles.itemInfo}>
                 <img
                   src={item.image}
-                  alt={item.name}
+                  alt={item.title}
                   className={styles.itemImage}
                 />
-                <span className={styles.itemName}>{item.name}</span>
+                <span className={styles.itemName}>
+                  {item.title} × {item.count}
+                </span>
               </div>
-              <span className={styles.itemPrice}>{item.price}</span>
+              <span className={styles.itemPrice}>
+                ${item.price * item.count}
+              </span>
             </div>
           ))}
 
           <div className={styles.summaryRow}>
             <span>Subtotal:</span>
-            <span>$1750</span>
+            <span>${subtotal}</span>
           </div>
+
+          {discount > 0 && (
+            <div className={styles.summaryRow} style={{ color: "#00b341" }}>
+              <span>Discount:</span>
+              <span>-${discount.toFixed(2)}</span>
+            </div>
+          )}
+
           <div className={styles.summaryRow}>
             <span>Shipping:</span>
-            <span>Free</span>
+            <span>{shipping === 0 ? "Free" : `$${shipping}`}</span>
           </div>
+
           <div className={`${styles.summaryRow} ${styles.totalRow}`}>
             <span>Total:</span>
-            <span>$1750</span>
+            <span>${total.toFixed(2)}</span>
           </div>
 
           <div className={styles.paymentOptions}>
@@ -256,10 +296,26 @@ const Checkout = () => {
               onChange={(e) => setCoupon(e.target.value)}
               className={styles.couponInput}
             />
-            <button className={styles.couponBtn} type="button">
+            <button
+              className={styles.couponBtn}
+              type="button"
+              onClick={handleApplyCoupon}
+            >
               Apply Coupon
             </button>
           </div>
+
+          {couponMsg && (
+            <p
+              style={{
+                fontSize: "13px",
+                marginTop: "8px",
+                color: couponMsg.startsWith("✅") ? "#00b341" : "#db4444",
+              }}
+            >
+              {couponMsg}
+            </p>
+          )}
 
           <button
             className={styles.placeOrderBtn}
@@ -271,8 +327,14 @@ const Checkout = () => {
           </button>
 
           {error && (
-            <p style={{ color: "#db4444", marginTop: "12px", fontSize: "14px" }}>
-              ❌ {error}
+            <p
+              style={{
+                color: "#db4444",
+                marginTop: "12px",
+                fontSize: "14px",
+              }}
+            >
+              ❌ Error: {error}
             </p>
           )}
         </div>

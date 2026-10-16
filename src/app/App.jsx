@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Header from "../shared/components/Header";
 import Footer from "../shared/components/Footer";
 import HomePage from "../pages/HomePage";
@@ -10,8 +10,9 @@ import CartSummary from "../features/cart/components/CartSummary";
 import Checkout from "../features/checkout/Checkout";
 import ContactPage from "../pages/ContactPage.jsx";
 
-
 function CartPage() {
+  const navigate = useNavigate();
+
   const handleBack = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -26,7 +27,7 @@ function CartPage() {
   };
 
   const handleCheckout = () => {
-    console.log("Proceeding to checkout");
+    navigate("/checkout");
   };
 
   return (
@@ -67,7 +68,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<Checkout />} />
-              <Route path="/contact" element={<ContactPage/>}/>
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
       <Footer />
     </>
