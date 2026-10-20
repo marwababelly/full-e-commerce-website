@@ -2,14 +2,16 @@ import React from 'react';
 import cartItemStyle from './cartItem.module.css';
 
 export default function CartItem({ item, onUpdateQuantity, onRemoveItem }) {
-  const handleDecrease = () => {
-    if (item.count > 1) {
+const handleDecrease = () => {
+    if (item.count > 1 && onUpdateQuantity) {
       onUpdateQuantity(item.id, item.count - 1);
     }
   };
 
   const handleIncrease = () => {
-    onUpdateQuantity(item.id, item.count + 1);
+    if (onUpdateQuantity) {
+      onUpdateQuantity(item.id, item.count + 1); 
+    }
   };
 
   return (
@@ -18,8 +20,8 @@ export default function CartItem({ item, onUpdateQuantity, onRemoveItem }) {
       <div className={cartItemStyle.productCol}>
         <div className={cartItemStyle.imgWrapper}>
           <img src={item.image} alt={item.title} className={cartItemStyle.productImg} />
-          <button 
-            className={cartItemStyle.removeBtn} 
+          <button
+            className={cartItemStyle.removeBtn}
             onClick={() => onRemoveItem(item.id)}
             title="حذف المنتج"
           >
@@ -28,12 +30,10 @@ export default function CartItem({ item, onUpdateQuantity, onRemoveItem }) {
         </div>
         <span className={cartItemStyle.productTitle}>{item.title}</span>
       </div>
-
       {/* السعر */}
       <div className={cartItemStyle.priceCol}>
         ${item.price}
       </div>
-
       {/* أزرار الكمية */}
       <div className={cartItemStyle.quantityCol}>
         <div className={cartItemStyle.quantityBox}>
@@ -44,7 +44,6 @@ export default function CartItem({ item, onUpdateQuantity, onRemoveItem }) {
           <button onClick={handleIncrease} className={cartItemStyle.qtyBtn}>+</button>
         </div>
       </div>
-
       {/* المجموع الفرعي */}
       <div className={cartItemStyle.subtotalCol}>
         ${item.price * item.count}

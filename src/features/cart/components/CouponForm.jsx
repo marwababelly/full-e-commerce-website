@@ -1,71 +1,48 @@
-// import { useState } from "react";
-// import styles from "./CouponForm.module.css";
-
-// const CouponForm=({onApply})=>{
-//   const[code,setCode]=useState("");
-//   const[msg,setMsg]=useState("");
-//   const [error, setError] = useState(false);
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//   const value = code.trim();
-
-// if (!value) {
-//       setMsg("Please enter a coupon code");
-//       setError(true);
-//       return;
-//     }
-//   const ok = onApply?.(value);
-
-// if (ok) {
-//       setMsg(`Coupon "${value.toUpperCase()}" applied successfully!`);
-//       setError(false);
-//       setCode("");
-//     } else {
-//       setMsg("Invalid coupon code. Try SAVE10, WELCOME, or VIP20");
-//       setError(true);
-//     }
-//   };
-//    const cls = error ? `${styles.msg} ${styles.err}` : `${styles.msg} ${styles.ok}`;
-//  return (
-//     <div className={styles.wrap}>
-//     <form className={styles.form} onSubmit={handleSubmit}>
-//         <input
-//           type="text"
-//           placeholder="Coupon Code"
-//           value={code}
-//           onChange={(e) => setCode(e.target.value)}
-//           className={styles.input}
-//         />
-//         <button
-//           type="submit"
-//           disabled={!code.trim()}
-//           className={styles.btn}
-//         >
-//           Apply Coupon
-//         </button>
-//     </form>
-//       {msg && <span className={cls}>{msg}</span>}
-//     </div>
-//   );
-// };
-// export default CouponForm;
-
-
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './CouponForm.module.css';
 
-const CouponForm = () => {
+const CouponForm = ({ onApply }) => {
+  const [code, setCode] = useState('');
+  const [message, setMessage] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!code.trim()) return;
+
+    if (onApply) {
+      const result = onApply(code);
+      if (result.success) {
+        setMessage({ type: 'success', text: `تم تطبيق الخصم بنجاح (${result.percent}%)!` });
+      } else {
+        setMessage({ type: 'error', text: 'رمز الكوبون غير صحيح' });
+      }
+    }
+  };
+
   return (
-    <form className={styles.couponContainer} onSubmit={(e) => e.preventDefault()}>
-      <input 
-        type="text" 
-        placeholder="Coupon Code" 
-        className={styles.couponInput}
-      />
-      <button type="submit" className={styles.applyBtn}>
-        Apply Coupon
-      </button>
-    </form>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <form className={styles.couponContainer} onSubmit={handleSubmit}>
+        <input 
+          type="text" 
+          placeholder="Coupon Code" 
+          className={styles.couponInput}
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+        />
+        <button type="submit" className={styles.applyBtn}>
+          Apply Coupon
+        </button>
+      </form>
+      {message && (
+        <span style={{ 
+          fontSize: '14px', 
+          color: message.type === 'success' ? '#2b8a3e' : '#db4444',
+          marginTop: '4px' 
+        }}>
+          {message.text}
+        </span>
+      )}
+    </div>
   );
 };
 

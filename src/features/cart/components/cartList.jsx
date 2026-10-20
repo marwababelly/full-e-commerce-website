@@ -5,9 +5,7 @@ import cartListStyle from './cartList.module.css';
 
 export default function CartList({ items, onUpdateQuantity, onRemoveItem }) {
   const [localItems, setLocalItems] = useState(cartMockData);
-
   const currentItems = items || localItems;
-
   const handleUpdateQty = (id, newCount) => {
     if (onUpdateQuantity) {
       onUpdateQuantity(id, newCount);
@@ -18,13 +16,26 @@ export default function CartList({ items, onUpdateQuantity, onRemoveItem }) {
     }
   };
 
-  const handleRemove = (id) => {
-    if (onRemoveItem) {
-      onRemoveItem(id);
+const handleRemoveItem = async (id) => {
+  try {
+    const response = await fetch(`/api/remove-item/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      setCartItems(prevItems => prevItems.filter(item => item.id !== id));
     } else {
-      setLocalItems(prev => prev.filter(item => item.id !== id));
+      console.error('Failed to remove item from backend');
+      alert('فشل حذف المنتج من الخادم، يجيب المحاولة لاحقاً');
     }
-  };
+  } catch (error) {
+    console.error('Error connecting to API:', error);
+    alert(' حدث خطأ في الاتصال بالخادم.');
+  }
+};
 
   if (!currentItems || currentItems.length === 0) {
     return (
@@ -36,14 +47,12 @@ export default function CartList({ items, onUpdateQuantity, onRemoveItem }) {
 
   return (
     <div className={cartListStyle.cartListContainer}>
-      {/* الهيدر المطلوب في Figma */}
       <div className={cartListStyle.cartHeader}>
         <span>Product</span>
         <span>Price</span>
         <span>Quantity</span>
         <span>Subtotal</span>
       </div>
-
       {/* عناصر السلة */}
       <div className={cartListStyle.itemsWrapper}>
         {currentItems.map((item) => (
@@ -51,7 +60,7 @@ export default function CartList({ items, onUpdateQuantity, onRemoveItem }) {
             key={item.id}
             item={item}
             onUpdateQuantity={handleUpdateQty}
-            onRemoveItem={handleRemove}
+            onRemoveItem={handleRemoveItem}
           />
         ))}
       </div>
