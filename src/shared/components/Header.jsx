@@ -1,14 +1,25 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../features/auth/context/AuthContext.jsx";
 import styles from "./Header.module.css";
+
+
 
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/contact", label: "Contact" },
   { to: "/about", label: "About" },
-  { to: "/signup", label: "Sign Up" },
+  { to: "/register", label: "Sign Up" },
 ];
 
 const Header = () => {
+  const { isAuthenticated, logout } = useAuth();
+const navigate = useNavigate();
+
+function handleLogout() {
+  logout();
+  navigate("/login");
+}
+
   return (
     <header className={styles.header}>
       <div className={styles.topBar}>
@@ -19,6 +30,7 @@ const Header = () => {
               ShopNow
             </Link>
           </p>
+
           <button type="button" className={styles.language}>
             English <span className={styles.chevron}>▾</span>
           </button>
@@ -37,7 +49,9 @@ const Header = () => {
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
+                  isActive
+                    ? `${styles.navLink} ${styles.active}`
+                    : styles.navLink
                 }
               >
                 {link.label}
@@ -52,22 +66,60 @@ const Header = () => {
                 placeholder="What are you looking for?"
                 className={styles.searchInput}
               />
-              <button type="button" className={styles.searchButton} aria-label="Search">
+
+              <button
+                type="button"
+                className={styles.searchButton}
+                aria-label="Search"
+              >
                 🔍
               </button>
             </div>
 
-            <Link to="/wishlist" className={styles.iconButton} aria-label="Wishlist">
+            <Link
+              to="/wishlist"
+              className={styles.iconButton}
+              aria-label="Wishlist"
+            >
               ♡
             </Link>
 
-            <Link to="/cart" className={styles.iconButton} aria-label="Cart">
+            <Link
+              to="/cart"
+              className={styles.iconButton}
+              aria-label="Cart"
+            >
               🛒
             </Link>
 
-            <Link to="/account" className={styles.iconButton} aria-label="Account">
-              👤
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Link
+                  to="/account"
+                  className={styles.iconButton}
+                  aria-label="My Account"
+                >
+                  👤
+                </Link>
+
+                <button
+                  type="button"
+                  className={styles.iconButton}
+                  onClick={handleLogout}
+                  aria-label="Log Out"
+                >
+                  Log Out
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className={styles.iconButton}
+                aria-label="Log In"
+              >
+                Log In
+              </Link>
+            )}
           </div>
         </div>
       </div>
