@@ -4,21 +4,24 @@ import SectionHeader from "./SectionHeader";
 import ArrowButton from "./ArrowButton";
 import styles from "./BrowseByCategory.module.css";
 
-const categories = [
-  { id: 1, name: "Phones", icon: "📱", filter: "electronics" },
-  { id: 2, name: "Computers", icon: "💻", filter: "electronics" },
-  { id: 3, name: "SmartWatch", icon: "⌚", filter: "electronics" },
-  { id: 4, name: "Camera", icon: "📷", filter: "electronics" },
-  { id: 5, name: "HeadPhones", icon: "🎧", filter: "music" },
-  { id: 6, name: "Gaming", icon: "🎮", filter: "gaming" },
-];
 
-const BrowseByCategory = () => {
+const iconMapping = {
+  "Camera": "📷",
+  "Cell Phone": "📱",
+  "Computer": "💻",
+  "Gamepad": "🎮",
+  "Headphone": "🎧",
+  "Smart Watch": "⌚"
+};
+
+const BrowseByCategory = ({ categories }) => {
   const scrollRef = useRef(null);
+
+  if (!categories || categories.length === 0) return null;
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
-    const amount = 250;
+    const amount = 200;
     scrollRef.current.scrollBy({
       left: direction === "left" ? -amount : amount,
       behavior: "smooth",
@@ -42,11 +45,16 @@ const BrowseByCategory = () => {
         <div className={styles.grid} ref={scrollRef}>
           {categories.map((category) => (
             <Link
-              to={`/products?filter=${category.filter}`}
+              to={`/products?filter=${category.slug}`}
               key={category.id}
               className={styles.categoryCard}
             >
-              <span className={styles.icon}>{category.icon}</span>
+            
+              <span className={styles.icon}>
+                {iconMapping[category.name] || (
+                  <img src={category.icon} alt={category.name} className={styles.categoryIcon} />
+                )}
+              </span>
               <span className={styles.name}>{category.name}</span>
             </Link>
           ))}

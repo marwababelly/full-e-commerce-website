@@ -2,38 +2,39 @@ import { Link } from "react-router-dom";
 import SectionHeader from "./SectionHeader";
 import styles from "./NewArrivalSection.module.css";
 
+
 const arrivals = [
   {
     id: 1,
-    title: "PlayStation 5",
-    subtitle: "Black and White version of the PS5 coming out on sale.",
-    image: "https://picsum.photos/seed/ps5big/800/900",
+    title: "Smart Watches",
+    subtitle: "Stay connected and track your health.",
+    image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=800&auto=format&fit=crop",
     size: "large",
-    link: "/products?filter=gaming",
+    link: "/products?filter=smart-watch",
   },
   {
     id: 2,
-    title: "Women's Collections",
-    subtitle: "Featured woman collections that give you another vibe.",
-    image: "https://picsum.photos/seed/womenbig/800/500",
+    title: "Gaming Gear",
+    subtitle: "Level up your gaming experience.",
+    image: "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?q=80&w=800&auto=format&fit=crop",
     size: "wide",
-    link: "/products?filter=fashion",
+    link: "/products?filter=gamepad",
   },
   {
     id: 3,
-    title: "Speakers",
-    subtitle: "Amazon wireless speakers.",
-    image: "https://picsum.photos/seed/speakersmall/400/400",
+    title: "Headphones",
+    subtitle: "Immerse yourself in pure sound.",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=400&auto=format&fit=crop",
     size: "small",
-    link: "/products?filter=music",
+    link: "/products?filter=headphone",
   },
   {
     id: 4,
-    title: "Perfume",
-    subtitle: "GUCCI INTENSE OUD EDP.",
-    image: "https://picsum.photos/seed/perfumesmall/400/400",
+    title: "Cameras",
+    subtitle: "Capture your best moments.",
+    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=400&auto=format&fit=crop",
     size: "small",
-    link: "/products?filter=beauty",
+    link: "/products?filter=camera",
   },
 ];
 

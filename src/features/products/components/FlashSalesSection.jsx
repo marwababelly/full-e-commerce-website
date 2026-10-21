@@ -1,10 +1,10 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import SectionHeader from "./SectionHeader";
 import CountdownTimer from "./CountdownTimer";
 import ProductCard from "./ProductCard";
 import ArrowButton from "./ArrowButton";
 import styles from "./FlashSalesSection.module.css";
-import { Link } from "react-router-dom";
 
 const FlashSalesSection = ({ products, flashSaleEnd }) => {
   const scrollRef = useRef(null);
@@ -18,6 +18,9 @@ const FlashSalesSection = ({ products, flashSaleEnd }) => {
     });
   };
 
+  
+  const hasMoreThanThree = products && products.length > 3;
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -26,15 +29,18 @@ const FlashSalesSection = ({ products, flashSaleEnd }) => {
           title="Flash Sales"
           centerSlot={<CountdownTimer targetDate={flashSaleEnd} />}
           rightSlot={
-            <div className={styles.arrows}>
-              <ArrowButton direction="left" onClick={() => scroll("left")} />
-              <ArrowButton direction="right" onClick={() => scroll("right")} />
-            </div>
+            
+            hasMoreThanThree && (
+              <div className={styles.arrows}>
+                <ArrowButton direction="left" onClick={() => scroll("left")} />
+                <ArrowButton direction="right" onClick={() => scroll("right")} />
+              </div>
+            )
           }
         />
 
         <div className={styles.scroll} ref={scrollRef}>
-          {products.map((product) => (
+          {products?.map((product) => (
             <div key={product.id} className={styles.item}>
               <ProductCard product={product} />
             </div>

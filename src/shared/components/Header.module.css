@@ -392,6 +392,7 @@
   padding-bottom: 4px;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s;
+  white-space: nowrap;
 }
 
 .navLink:hover {

@@ -1,5 +1,6 @@
-import styles from "./MusicBanner.module.css";
 import { Link } from "react-router-dom";
+import styles from "./MusicBanner.module.css";
+
 const timerUnits = [
   { id: 1, label: "Hours", value: 23 },
   { id: 2, label: "Days", value: 5 },
@@ -18,7 +19,7 @@ const MusicBanner = () => {
             <h2 className={styles.title}>
               Enhance Your
               <br />
-              Music Experience
+              Nice Experience
             </h2>
 
             <div className={styles.timer}>
@@ -32,15 +33,17 @@ const MusicBanner = () => {
               ))}
             </div>
 
-            <Link to="/products?filter=music" className={styles.buyNow}>
-                Buy Now!
-              </Link>
+            
+            <Link to="/products?filter=computer" className={styles.buyNow}>
+              Buy Now!
+            </Link>
           </div>
 
           <div className={styles.imageWrapper}>
+           
             <img
-              src="https://picsum.photos/seed/speakerbanner/600/500"
-              alt="Speaker"
+              src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=600&auto=format&fit=crop"
+              alt="Computer"
               className={styles.image}
             />
           </div>

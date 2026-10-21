@@ -20,6 +20,8 @@
   scroll-behavior: smooth;
   padding-bottom: 20px;
   scrollbar-width: none;
+ 
+  width: 100%;
 }
 
 .scroll::-webkit-scrollbar {
@@ -27,7 +29,9 @@
 }
 
 .item {
-  flex: 0 0 270px;
+
+  flex: 0 0 270px; 
+  flex-shrink: 0;
 }
 
 .buttonWrapper {

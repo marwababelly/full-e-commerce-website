@@ -21,7 +21,6 @@ const Stars = ({ rating }) => {
 
 const ProductCard = ({ product }) => {
   const [liked, setLiked] = useState(false);
-
   const hasDiscount = product.discountPercent > 0;
 
   return (

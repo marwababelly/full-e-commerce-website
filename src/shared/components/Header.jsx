@@ -1,4 +1,5 @@
-import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 
 const navLinks = [
@@ -9,6 +10,18 @@ const navLinks = [
 ];
 
 const Header = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim() !== "") {
+      navigate(`/products?search=${searchTerm}`);
+      setSearchTerm(""); 
+    }
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.topBar}>
@@ -48,20 +61,23 @@ const Header = () => {
           </nav>
 
           <div className={styles.actions}>
-            <div className={styles.search}>
+            
+            <form className={styles.search} onSubmit={handleSearch}>
               <input
                 type="text"
                 placeholder="What are you looking for?"
                 className={styles.searchInput}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <button
-                type="button"
+                type="submit"
                 className={styles.searchButton}
                 aria-label="Search"
               >
                 🔍
               </button>
-            </div>
+            </form>
 
             <Link
               to="/wishlist"
