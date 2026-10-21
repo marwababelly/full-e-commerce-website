@@ -1,23 +1,18 @@
-.page {
+.aboutPageWrapper {
   max-width: 1170px;
   margin: 40px auto 100px;
   padding: 0 20px;
   font-family: "Poppins", "Segoe UI", sans-serif;
 }
 
-.crumb {
+.breadcrumb {
   font-size: 14px;
   color: #999;
   margin-bottom: 60px;
 }
 
-.crumb::before {
-  content: "Home / ";
-  color: #999;
-}
-
 /* ========== Our Story ========== */
-.story {
+.storySection {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
@@ -25,7 +20,7 @@
   margin-bottom: 100px;
 }
 
-.story h1 {
+.storyContent h1 {
   font-size: 54px;
   font-weight: 600;
   margin: 0 0 32px;
@@ -33,155 +28,149 @@
   letter-spacing: -1px;
 }
 
-.story p {
+.storyContent p {
   font-size: 16px;
   line-height: 1.7;
   color: #333;
   margin: 0 0 20px;
 }
 
-.story img {
+.storyImg {
   width: 100%;
   height: auto;
   border-radius: 8px;
   object-fit: cover;
 }
 
-/* ========== Stats ========== */
-.stats {
+/* ========== Statistics ========== */
+.statisticsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 30px;
   margin-bottom: 100px;
 }
 
-.stat {
+.statCard {
   padding: 30px 20px;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
   text-align: center;
   transition: all 0.3s ease;
-  cursor: pointer;
 }
 
-.stat:hover {
+.statCard:hover {
   background: #db4444;
   color: #fff;
   border-color: #db4444;
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(219, 68, 68, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(219, 68, 68, 0.3);
 }
 
-.statIcon {
-  width: 60px;
-  height: 60px;
+.iconWrapper {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: #f5f5f5;
+  background: #dbdbdb;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 16px;
-  color: #000;
+  margin: 0 auto 24px;
   transition: all 0.3s ease;
 }
 
-.statIcon svg {
-  width: 28px;
-  height: 28px;
-}
-
-.stat:hover .statIcon {
-  background: rgba(255, 255, 255, 0.25);
+.iconInner {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #000;
   color: #fff;
-  transform: scale(1.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 
-.stat h3 {
-  font-size: 28px;
+.statCard:hover .iconInner {
+  background: #fff;
+  color: #000;
+}
+
+.statCard h2 {
+  font-size: 32px;
   font-weight: 700;
   margin: 0 0 8px;
   color: #000;
-  transition: color 0.3s ease;
 }
 
-.stat:hover h3 {
+.statCard:hover h2,
+.statCard:hover p {
   color: #fff;
 }
 
-.stat p {
-  font-size: 14px;
+.statCard p {
+  font-size: 16px;
   margin: 0;
-  color: #666;
-  transition: color 0.3s ease;
-}
-
-.stat:hover p {
-  color: rgba(255, 255, 255, 0.9);
+  color: #333;
 }
 
 /* ========== Team ========== */
-.team {
+.teamSection {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin-bottom: 100px;
 }
 
-.member {
+.teamCard {
   text-align: left;
 }
 
-.member img {
-  width: 100%;
-  aspect-ratio: 1 / 1.1;
-  object-fit: cover;
+.teamCard .photo {
   background: #f5f5f5;
-  border-radius: 6px;
+  border-radius: 4px;
+  overflow: hidden;
   margin-bottom: 24px;
+}
+
+.teamCard img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
   transition: transform 0.4s ease;
 }
 
-.member:hover img {
-  transform: scale(1.02);
+.teamCard:hover img {
+  transform: scale(1.03);
 }
 
-.member h3 {
+.teamCard h3 {
   font-size: 26px;
   font-weight: 500;
   margin: 0 0 8px;
   color: #000;
 }
 
-.member p {
+.teamCard p {
   color: #666;
-  font-size: 14px;
-  margin: 0 0 16px;
-}
-
-.social {
-  display: flex;
-  gap: 16px;
-}
-
-.social a {
-  color: #000;
   font-size: 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
+  margin: 0;
 }
 
-.social a:hover {
-  color: #db4444;
-  transform: translateY(-2px);
+/* ========== Responsive ========== */
+@media (max-width: 1024px) {
+  .statisticsGrid { grid-template-columns: repeat(2, 1fr); }
+  .teamSection { grid-template-columns: repeat(2, 1fr); }
+  .storyContent h1 { font-size: 42px; }
 }
 
-/* ========== Features ========== */
-.features {
+@media (max-width: 768px) {
+  .storySection { grid-template-columns: 1fr; gap: 32px; margin-bottom: 60px; }
+  .statisticsGrid { grid-template-columns: 1fr; margin-bottom: 60px; }
+  .teamSection { grid-template-columns: 1fr; gap: 40px; margin-bottom: 60px; }
+  .storyContent h1 { font-size: 32px; }
+}
+/* ========== Benefits ========== */
+.benefitsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
@@ -189,7 +178,7 @@
   text-align: center;
 }
 
-.featureIcon {
+.benefitCard .iconWrapper {
   width: 70px;
   height: 70px;
   border-radius: 50%;
@@ -202,109 +191,28 @@
   transition: all 0.3s ease;
 }
 
-.featureIcon svg {
-  width: 32px;
-  height: 32px;
-}
-
-.features > div:hover .featureIcon {
+.benefitCard:hover .iconWrapper {
   background: #db4444;
   transform: scale(1.08);
   box-shadow: 0 10px 25px rgba(219, 68, 68, 0.3);
 }
 
-.features h3 {
+.benefitCard h3 {
   font-size: 18px;
   font-weight: 700;
   margin: 0 0 10px;
   color: #000;
-  letter-spacing: 0.3px;
 }
 
-.features p {
+.benefitCard p {
   font-size: 14px;
   color: #666;
   margin: 0;
-  line-height: 1.5;
-}
-
-/* ========== Responsive ========== */
-@media (max-width: 1024px) {
-  .story h1 {
-    font-size: 42px;
-  }
-
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .team {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (max-width: 768px) {
-  .page {
-    margin: 20px auto 60px;
-  }
-
-  .crumb {
-    margin-bottom: 32px;
-  }
-
-  .story {
+  .benefitsGrid {
     grid-template-columns: 1fr;
     gap: 32px;
-    margin-bottom: 60px;
-  }
-
-  .story h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-
-  .story p {
-    font-size: 14px;
-  }
-
-  .stats {
-    grid-template-columns: 1fr;
-    margin-bottom: 60px;
-  }
-
-  .team {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    margin-bottom: 60px;
-  }
-
-  .features {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    padding: 20px 0 40px;
-  }
-
-  .member h3 {
-    font-size: 22px;
-  }
-}
-
-@media (max-width: 480px) {
-  .story h1 {
-    font-size: 28px;
-  }
-
-  .stat h3 {
-    font-size: 22px;
-  }
-
-  .featureIcon {
-    width: 60px;
-    height: 60px;
-  }
-
-  .featureIcon svg {
-    width: 28px;
-    height: 28px;
   }
 }

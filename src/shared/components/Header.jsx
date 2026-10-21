@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../features/auth/context/AuthContext.jsx";
 import styles from "./Header.module.css";
 
 const navLinks = [
@@ -11,8 +12,8 @@ const navLinks = [
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
-
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -20,6 +21,11 @@ const Header = () => {
       navigate(`/products?search=${searchTerm}`);
       setSearchTerm(""); 
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
   };
 
   return (
@@ -61,7 +67,6 @@ const Header = () => {
           </nav>
 
           <div className={styles.actions}>
-            
             <form className={styles.search} onSubmit={handleSearch}>
               <input
                 type="text"
@@ -95,13 +100,34 @@ const Header = () => {
               🛒
             </Link>
 
-            <Link
-              to="/account"
-              className={styles.iconButton}
-              aria-label="Account"
-            >
-              👤
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Link
+                  to="/account"
+                  className={styles.iconButton}
+                  aria-label="My Account"
+                >
+                  👤
+                </Link>
+                <button
+                  type="button"
+                  className={styles.iconButton}
+                  onClick={handleLogout}
+                  aria-label="Log Out"
+                  style={{ fontSize: '12px', fontWeight: 'bold' }}
+                >
+                  Log Out
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className={styles.iconButton}
+                aria-label="Log In"
+              >
+                Log In
+              </Link>
+            )}
           </div>
         </div>
       </div>
