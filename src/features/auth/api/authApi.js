@@ -19,6 +19,27 @@ async function request(endpoint, options = {}) {
 }
 
 export async function loginUser({ username, password }) {
+    // First, check accounts created through our Register form.
+    const registeredUsers = JSON.parse(
+        localStorage.getItem("registeredUsers") || "[]"
+    );
+
+    const registeredUser = registeredUsers.find(
+        (user) =>
+        user.emailOrPhone.toLowerCase() === username.trim().toLowerCase() &&
+        user.password === password
+    );
+
+    if (registeredUser) {
+        return {
+            id: `local-${registeredUser.emailOrPhone}`,
+            username: registeredUser.emailOrPhone,
+            firstName: registeredUser.name,
+            email: registeredUser.emailOrPhone,
+        };
+    }
+
+    // Otherwise, try the existing DummyJSON demo login.
     return request("/auth/login", {
         method: "POST",
         body: JSON.stringify({ username, password }),

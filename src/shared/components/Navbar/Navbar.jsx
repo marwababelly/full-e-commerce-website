@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Navbar.module.css";
-
+import { Link } from "react-router-dom";
 function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [language, setLanguage] = useState("English");
@@ -67,14 +67,13 @@ function Navbar() {
 
         {/* LINKS */}
         <div
-            className={`${styles.links} ${
-            isMenuOpen ? styles.linksOpen : ""}`}
-        >
-            <a href="#">Home</a>
-            <a href="#">Contact</a>
-            <a href="#">About</a>
-            <a href="#">Sign Up</a>
-        </div>
+  className={`${styles.links} ${isMenuOpen ? styles.linksOpen : ""}`}
+>
+  <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
+  <Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+  <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
+  <Link to="/register" onClick={() => setIsMenuOpen(false)}>Sign Up</Link>
+</div>
 
 
         {/* RIGHT SIDE */}
@@ -113,31 +112,52 @@ function Navbar() {
             </button>
 
 
-          {/* CART */}
-        <button className={styles.iconButton} aria-label="Cart">
-            <svg
-                className={styles.icon}
-                viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M3 4H5L7.2 15.5C7.4 16.4 8.2 17 9.1 17H17.5C18.4 17 19.2 16.4 19.4 15.5L21 8H6"
-                strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+         
+{/* CART */}
+<Link
+  to="/cart"
+  className={styles.iconButton}
+  aria-label="Cart"
+>
+  <svg
+    className={styles.icon}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+  >
+    <path
+      d="M3 4H5L7.2 15.5C7.4 16.4 8.2 17 9.1 17H17.5C18.4 17 19.2 16.4 19.4 15.5L21 8H6"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle cx="9" cy="20" r="1.3" />
+    <circle cx="18" cy="20" r="1.3" />
+  </svg>
+</Link>
 
-                <circle cx="9" cy="20" r="1.3" />
-                <circle cx="18" cy="20" r="1.3" />
-            </svg>
-        </button>
+         
+{/* ACCOUNT */}
+<Link
+  to="/account"
+  className={`${styles.accountButton} ${styles.active}`}
+  aria-label="My Account"
+>
+  <svg
+    className={styles.accountIcon}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+  >
+    <circle cx="12" cy="8" r="4" strokeWidth="1.8" />
 
-
-          {/* ACCOUNT */}
-        <button className={`${styles.accountButton} ${styles.active}`} aria-label="Account">
-            <svg
-                className={styles.accountIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <circle cx="12" cy="8" r="4" strokeWidth="1.8" />
-
-            <path
-                d="M4 21C4.8 16.8 7.5 14 12 14C16.5 14 19.2 16.8 20 21"
-                strokeWidth="1.8" strokeLinecap="round"/>
-            </svg>
-        </button>
+    <path
+      d="M4 21C4.8 16.8 7.5 14 12 14C16.5 14 19.2 16.8 20 21"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+    />
+  </svg>
+</Link>
 
 
           {/* MOBILE MENU */}
