@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ProductCard.module.css";
 import { formatPrice } from "../utils/formatPrice";
+// تصحيح المسار ليكون متطابق مع مجلد Cart
+import { useCart } from "../../Cart/CartContext"; 
 
 const Stars = ({ rating }) => {
   const rounded = Math.round(rating);
@@ -21,6 +23,7 @@ const Stars = ({ rating }) => {
 
 const ProductCard = ({ product }) => {
   const [liked, setLiked] = useState(false);
+  const { addToCart } = useCart();
 
   const hasDiscount = product.discountPercent > 0;
 
@@ -61,7 +64,11 @@ const ProductCard = ({ product }) => {
           />
         </Link>
 
-        <button type="button" className={styles.addToCart}>
+        <button 
+          type="button" 
+          className={styles.addToCart}
+          onClick={() => addToCart(product)}
+        >
           Add To Cart
         </button>
       </div>
