@@ -1,58 +1,51 @@
-const BASE_URL = "https://dummyjson.com";
 
-async function request(endpoint, options = {}) {
-    const response = await fetch(`${BASE_URL}${endpoint}`, {
-        ...options,
-        headers: {
-            "Content-Type": "application/json",
-            ...options.headers,
-        },
-    });
+import { Axios, privateAxios } from "../../../Hooks/Axios";
 
-    const data = await response.json();
+// Register
+export async function registerUser({
+  first_name,
+  last_name,
+  email,
+  phone_number,
+  password,
+  password_confirmation,
+  address,
+}) {
+  const formData = new FormData();
 
-    if (!response.ok) {
-        throw new Error(data.message || "Something went wrong");
-    }
+  formData.append("first_name", first_name);
+  formData.append("last_name", last_name);
+  formData.append("email", email);
+  formData.append("phone_number", phone_number);
+  formData.append("password", password);
+  formData.append("password_confirmation", password_confirmation);
+  formData.append("address", address);
 
-    return data;
+  const response = await Axios.post("register", formData);
+  return response.data;
 }
 
-export async function loginUser({ username, password }) {
-    // First, check accounts created through our Register form.
-    const registeredUsers = JSON.parse(
-        localStorage.getItem("registeredUsers") || "[]"
-    );
+// Login
+export async function loginUser({ email, phone_number, password }) {
+  const formData = new FormData();
 
-    const registeredUser = registeredUsers.find(
-        (user) =>
-        user.emailOrPhone.toLowerCase() === username.trim().toLowerCase() &&
-        user.password === password
-    );
+  formData.append("email", email);
+  formData.append("phone_number", phone_number);
+  formData.append("password", password);
 
-    if (registeredUser) {
-        return {
-            id: `local-${registeredUser.emailOrPhone}`,
-            username: registeredUser.emailOrPhone,
-            firstName: registeredUser.name,
-            email: registeredUser.emailOrPhone,
-        };
-    }
-
-    // Otherwise, try the existing DummyJSON demo login.
-    return request("/auth/login", {
-        method: "POST",
-        body: JSON.stringify({ username, password }),
-    });
+  const response = await Axios.post("login", formData);
+  return response.data;
 }
 
-export async function registerUser({ name, email, password }) {
-    return request("/users/add", {
-        method: "POST",
-        body: JSON.stringify({
-            firstName: name,
-            email,
-            password,
-        }),
-    });
+// Update Profile
+export async function updateProfile(profileData) {
+  const response = await privateAxios.put("profile/edit", profileData, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "X-HTTP-Method-Override": "PUT",
+    },
+  });
+
+  return response.data;
 }

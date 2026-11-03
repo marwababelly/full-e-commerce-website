@@ -11,6 +11,9 @@ function AccountPage() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  const firstName =
+    user?.first_name || user?.firstName || user?.name || "User";
+
   const handleLogout = () => {
     logout();
     navigate("/login", { replace: true });
@@ -28,12 +31,12 @@ function AccountPage() {
 
           <div>
             <p className={styles.welcome}>
-              Welcome! <span>{user?.firstName || user?.name || "User"}</span>
+              Welcome! <span>{firstName}</span>
             </p>
 
             <button type="button" onClick={handleLogout}>
-  Log Out
-</button>
+              Log Out
+            </button>
           </div>
         </div>
 
