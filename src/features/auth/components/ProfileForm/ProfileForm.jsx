@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { updateProfile } from "../../api/authApi.js";
@@ -118,6 +119,7 @@ function ProfileForm() {
       setSuccess(response?.message || "Profile updated successfully.");
     } catch (err) {
       const validationErrors = err.response?.data?.errors;
+
       const firstValidationError = validationErrors
         ? Object.values(validationErrors).flat()[0]
         : null;
@@ -140,8 +142,9 @@ function ProfileForm() {
       <form onSubmit={handleSubmit}>
         <div className={styles.fieldsRow}>
           <div className={styles.field}>
-            <label>First Name</label>
+            <label htmlFor="first_name">First Name</label>
             <input
+              id="first_name"
               type="text"
               name="first_name"
               value={formData.first_name}
@@ -151,8 +154,9 @@ function ProfileForm() {
           </div>
 
           <div className={styles.field}>
-            <label>Last Name</label>
+            <label htmlFor="last_name">Last Name</label>
             <input
+              id="last_name"
               type="text"
               name="last_name"
               value={formData.last_name}
@@ -164,8 +168,9 @@ function ProfileForm() {
 
         <div className={styles.fieldsRow}>
           <div className={styles.field}>
-            <label>Email</label>
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
               type="email"
               name="email"
               value={formData.email}
@@ -175,8 +180,9 @@ function ProfileForm() {
           </div>
 
           <div className={styles.field}>
-            <label>Phone Number</label>
+            <label htmlFor="phone_number">Phone Number</label>
             <input
+              id="phone_number"
               type="tel"
               name="phone_number"
               value={formData.phone_number}
@@ -187,8 +193,9 @@ function ProfileForm() {
 
         <div className={styles.fieldsRow}>
           <div className={styles.field}>
-            <label>Address</label>
+            <label htmlFor="address">Address</label>
             <input
+              id="address"
               type="text"
               name="address"
               value={formData.address}
@@ -231,8 +238,17 @@ function ProfileForm() {
           />
         </div>
 
-        {error && <p role="alert" style={{ color: "red" }}>{error}</p>}
-        {success && <p role="status" style={{ color: "green" }}>{success}</p>}
+        {error && (
+          <p role="alert" style={{ color: "red" }}>
+            {error}
+          </p>
+        )}
+
+        {success && (
+          <p role="status" style={{ color: "green" }}>
+            {success}
+          </p>
+        )}
 
         <div className={styles.actions}>
           <button

@@ -145,7 +145,7 @@ function Navbar() {
           <Link
             to="/account"
             className={`${styles.accountButton} ${styles.active}`}
-            aria-label="Account"
+            aria-label="My Account"
             onClick={closeMenu}
           >
             <svg

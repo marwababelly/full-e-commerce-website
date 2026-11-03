@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./RegisterForm.module.css";
@@ -18,23 +19,22 @@ function RegisterForm() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
+
+    setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setError("");
-    setSuccess("");
 
     if (formData.password !== formData.password_confirmation) {
-      setError("Passwords do not match");
+      setError("Passwords do not match.");
       return;
     }
 
@@ -44,10 +44,6 @@ function RegisterForm() {
       const response = await registerUser(formData);
 
       if (response.success) {
-        setSuccess(
-          response.message || "Account created successfully"
-        );
-
         setFormData({
           first_name: "",
           last_name: "",
@@ -60,13 +56,20 @@ function RegisterForm() {
 
         navigate("/login", { replace: true });
       } else {
-        setError(response.message || "Registration failed");
+        setError(response.message || "Registration failed.");
       }
     } catch (err) {
+      const validationErrors = err.response?.data?.errors;
+
+      const firstValidationError = validationErrors
+        ? Object.values(validationErrors).flat()[0]
+        : null;
+
       setError(
-        err.response?.data?.message ||
-        err.message ||
-        "Something went wrong"
+        firstValidationError ||
+          err.response?.data?.message ||
+          err.message ||
+          "Something went wrong."
       );
     } finally {
       setLoading(false);
@@ -84,12 +87,12 @@ function RegisterForm() {
       <form
         className={styles.form}
         onSubmit={handleSubmit}
-        noValidate
       >
         <input
           type="text"
           name="first_name"
           placeholder="First Name"
+          autoComplete="given-name"
           className={styles.input}
           value={formData.first_name}
           onChange={handleChange}
@@ -100,6 +103,7 @@ function RegisterForm() {
           type="text"
           name="last_name"
           placeholder="Last Name"
+          autoComplete="family-name"
           className={styles.input}
           value={formData.last_name}
           onChange={handleChange}
@@ -110,6 +114,7 @@ function RegisterForm() {
           type="email"
           name="email"
           placeholder="Email"
+          autoComplete="email"
           className={styles.input}
           value={formData.email}
           onChange={handleChange}
@@ -120,6 +125,7 @@ function RegisterForm() {
           type="tel"
           name="phone_number"
           placeholder="Phone Number"
+          autoComplete="tel"
           className={styles.input}
           value={formData.phone_number}
           onChange={handleChange}
@@ -130,6 +136,7 @@ function RegisterForm() {
           type="password"
           name="password"
           placeholder="Password"
+          autoComplete="new-password"
           className={styles.input}
           value={formData.password}
           onChange={handleChange}
@@ -140,6 +147,7 @@ function RegisterForm() {
           type="password"
           name="password_confirmation"
           placeholder="Confirm Password"
+          autoComplete="new-password"
           className={styles.input}
           value={formData.password_confirmation}
           onChange={handleChange}
@@ -150,14 +158,18 @@ function RegisterForm() {
           type="text"
           name="address"
           placeholder="Address"
+          autoComplete="street-address"
           className={styles.input}
           value={formData.address}
           onChange={handleChange}
           required
         />
 
-        {error && <p role="alert">{error}</p>}
-        {success && <p role="status">{success}</p>}
+        {error && (
+          <p role="alert" style={{ color: "red" }}>
+            {error}
+          </p>
+        )}
 
         <button
           type="submit"
@@ -166,9 +178,15 @@ function RegisterForm() {
         >
           {loading ? "Creating Account..." : "Create Account"}
         </button>
+
         <button
           type="button"
           className={styles.googleBtn}
+          onClick={() =>
+            setError(
+              "Google sign-up is not available yet. Please create an account using the form."
+            )
+          }
         >
           <svg
             className={styles.googleIcon}
@@ -197,7 +215,7 @@ function RegisterForm() {
       </form>
 
       <p className={styles.loginText}>
-        Already have account?{" "}
+        Already have an account?{" "}
         <button
           type="button"
           className={styles.loginLink}

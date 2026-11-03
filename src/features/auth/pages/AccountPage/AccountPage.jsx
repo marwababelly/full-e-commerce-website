@@ -1,14 +1,23 @@
 
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext.jsx";
+
 import Navbar from "../../../../shared/components/Navbar/Navbar";
 import AccountSidebar from "../../components/AccountSidebar/AccountSidebar";
 import ProfileForm from "../../components/ProfileForm/ProfileForm";
-import { useAuth } from "../../context/AuthContext.jsx";
 import styles from "./AccountPage.module.css";
 
 function AccountPage() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const firstName = user?.first_name || "";
+  const firstName =
+    user?.first_name || user?.firstName || user?.name || "User";
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
 
   return (
     <>
@@ -20,14 +29,19 @@ function AccountPage() {
             Home <span>/</span> My Account
           </p>
 
-          <p className={styles.welcome}>
-            Welcome! <span>{firstName}</span>
-          </p>
+          <div>
+            <p className={styles.welcome}>
+              Welcome! <span>{firstName}</span>
+            </p>
+
+            <button type="button" onClick={handleLogout}>
+              Log Out
+            </button>
+          </div>
         </div>
 
         <div className={styles.accountContent}>
           <AccountSidebar />
-
           <ProfileForm />
         </div>
       </main>
