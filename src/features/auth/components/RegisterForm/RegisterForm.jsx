@@ -1,72 +1,180 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./RegisterForm.module.css";
+import { registerUser } from "../../api/authApi";
 
 function RegisterForm() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    name: "",
-    emailOrPhone: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
     password: "",
+    password_confirmation: "",
+    address: "",
   });
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setError("");
+    setSuccess("");
+
+    if (formData.password !== formData.password_confirmation) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await registerUser(formData);
+
+      if (response.success) {
+        setSuccess(
+          response.message || "Account created successfully"
+        );
+
+        setFormData({
+          first_name: "",
+          last_name: "",
+          email: "",
+          phone_number: "",
+          password: "",
+          password_confirmation: "",
+          address: "",
+        });
+
+        navigate("/login", { replace: true });
+      } else {
+        setError(response.message || "Registration failed");
+      }
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+        err.message ||
+        "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className={styles.formWrapper}>
       <h1 className={styles.title}>Create an account</h1>
-      <p className={styles.subtitle}>Enter your details below</p>
 
-      <form className={styles.form} onSubmit={handleSubmit} noValidate>
-        <label htmlFor="name" className={styles.visuallyHidden}>
-          Name
-        </label>
+      <p className={styles.subtitle}>
+        Enter your details below
+      </p>
+
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit}
+        noValidate
+      >
         <input
-          id="name"
           type="text"
-          name="name"
-          placeholder="Name"
+          name="first_name"
+          placeholder="First Name"
           className={styles.input}
-          value={formData.name}
+          value={formData.first_name}
           onChange={handleChange}
+          required
         />
 
-        <label htmlFor="emailOrPhone" className={styles.visuallyHidden}>
-          Email or Phone Number
-        </label>
         <input
-          id="emailOrPhone"
           type="text"
-          name="emailOrPhone"
-          placeholder="Email or Phone Number"
+          name="last_name"
+          placeholder="Last Name"
           className={styles.input}
-          value={formData.emailOrPhone}
+          value={formData.last_name}
           onChange={handleChange}
+          required
         />
 
-        <label htmlFor="password" className={styles.visuallyHidden}>
-          Password
-        </label>
         <input
-          id="password"
+          type="email"
+          name="email"
+          placeholder="Email"
+          className={styles.input}
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="tel"
+          name="phone_number"
+          placeholder="Phone Number"
+          className={styles.input}
+          value={formData.phone_number}
+          onChange={handleChange}
+          required
+        />
+
+        <input
           type="password"
           name="password"
           placeholder="Password"
           className={styles.input}
           value={formData.password}
           onChange={handleChange}
+          required
         />
 
-        <button type="submit" className={styles.createBtn}>
-          Create Account
-        </button>
+        <input
+          type="password"
+          name="password_confirmation"
+          placeholder="Confirm Password"
+          className={styles.input}
+          value={formData.password_confirmation}
+          onChange={handleChange}
+          required
+        />
 
-        <button type="button" className={styles.googleBtn}>
-          <svg className={styles.googleIcon} viewBox="0 0 18 18" aria-hidden="true">
+        <input
+          type="text"
+          name="address"
+          placeholder="Address"
+          className={styles.input}
+          value={formData.address}
+          onChange={handleChange}
+          required
+        />
+
+        {error && <p role="alert">{error}</p>}
+        {success && <p role="status">{success}</p>}
+
+        <button
+          type="submit"
+          className={styles.createBtn}
+          disabled={loading}
+        >
+          {loading ? "Creating Account..." : "Create Account"}
+        </button>
+        <button
+          type="button"
+          className={styles.googleBtn}
+        >
+          <svg
+            className={styles.googleIcon}
+            viewBox="0 0 18 18"
+            aria-hidden="true"
+          >
             <path
               fill="#4285F4"
               d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.57 2.7-3.88 2.7-6.62z"
@@ -90,9 +198,13 @@ function RegisterForm() {
 
       <p className={styles.loginText}>
         Already have account?{" "}
-        <a href="#" className={styles.loginLink}>
+        <button
+          type="button"
+          className={styles.loginLink}
+          onClick={() => navigate("/login")}
+        >
           Log in
-        </a>
+        </button>
       </p>
     </div>
   );
