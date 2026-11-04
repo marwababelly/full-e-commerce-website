@@ -1,5 +1,7 @@
-// ProductInfo.jsx
 import { useState } from "react";
+import { useCart } from "../Cart/CartContext";
+import { useNavigate } from "react-router-dom";
+
 import styles from "./ProductInfo.module.css";
 import ColorPicker from "./ColorPicker";
 import SizePicker from "./SizePicker";
@@ -11,9 +13,22 @@ function ProductInfo({ product }) {
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
   const [quantity, setQuantity] = useState(1);
 
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+
   const handleBuyNow = () => {
-    // TODO: connect to cart later (coordinate with Cart teammate)
-    console.log({ productId: product.id, selectedColor, selectedSize, quantity });
+    if (!product.inStock) return;
+
+    addToCart(
+      {
+        ...product,
+        color: selectedColor,
+        size: selectedSize,
+      },
+      quantity
+    );
+
+    navigate("/cart");
   };
 
   return (
@@ -30,7 +45,9 @@ function ProductInfo({ product }) {
 
       <div className={styles.price}>
         ${product.price}
-        {product.oldPrice && <span className={styles.oldPrice}>${product.oldPrice}</span>}
+        {product.oldPrice && (
+          <span className={styles.oldPrice}>${product.oldPrice}</span>
+        )}
       </div>
 
       <p className={styles.description}>{product.description}</p>
@@ -50,11 +67,22 @@ function ProductInfo({ product }) {
       />
 
       <div className={styles.actionsRow}>
-        <QuantitySelector quantity={quantity} onChange={setQuantity} />
-        <button className={styles.buyBtn} onClick={handleBuyNow}>
+        <QuantitySelector
+          quantity={quantity}
+          onChange={setQuantity}
+        />
+
+        <button
+          className={styles.buyBtn}
+          onClick={handleBuyNow}
+          disabled={!product.inStock}
+        >
           Buy Now
         </button>
-        <button className={styles.wishlistBtn}>♡</button>
+
+        <button className={styles.wishlistBtn} type="button">
+          ♡
+        </button>
       </div>
 
       <DeliveryInfo />

@@ -19,14 +19,25 @@ export function AuthProvider({ children }) {
   const login = async (credentials) => {
     const result = await loginUser(credentials);
 
-    localStorage.setItem("authUser", JSON.stringify(result));
-    setUser(result);
+    const userData = result.data.user;
+    const token = result.data.access_token;
+
+    localStorage.setItem("authUser", JSON.stringify(userData));
+    localStorage.setItem("token", token);
+
+    setUser(userData);
 
     return result;
   };
 
+  const updateUser = (updatedUser) => {
+    localStorage.setItem("authUser", JSON.stringify(updatedUser));
+    setUser(updatedUser);
+  };
+
   const logout = () => {
     localStorage.removeItem("authUser");
+    localStorage.removeItem("token");
     setUser(null);
   };
 
@@ -37,6 +48,7 @@ export function AuthProvider({ children }) {
         isAuthenticated: Boolean(user),
         login,
         logout,
+        updateUser,
       }}
     >
       {children}

@@ -4,35 +4,40 @@ import { useAuth } from "../../context/AuthContext.jsx";
 import styles from "./LoginForm.module.css";
 
 function LoginForm() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone_number, setPhone_number] = useState("");
   const [password, setPassword] = useState("");
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
+
   const navigate = useNavigate();
   const location = useLocation();
-const from = location.state?.from?.pathname || "/";
-console.log("Saved destination:", location.state?.from);
-console.log("Redirect path:", from);
-async function handleSubmit(event) {
-  event.preventDefault();
-  setError("");
-  setLoading(true);
 
-  try {
-    await login({ username, password });
+  const from = location.state?.from?.pathname || "/";
 
-console.log("Login successful");
-console.log("Navigating to:", from);
+  async function handleSubmit(event) {
+    event.preventDefault();
 
-navigate(from, { replace: true });
-  } catch (err) {
-    setError(err.message || "Login failed. Please try again.");
-  } finally {
-    setLoading(false);
+    setError("");
+    setLoading(true);
+
+    try {
+      await login({ email, phone_number, password });
+
+      navigate(from, { replace: true });
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+        err.message ||
+        "Login failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   }
-}
 
   return (
     <div className={styles.loginForm}>
@@ -45,11 +50,11 @@ navigate(from, { replace: true });
       <form onSubmit={handleSubmit}>
         <input
           className={styles.input}
-          type="text"
-          placeholder="Username"
-          autoComplete="username"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
+          type="email"
+          placeholder="Email"
+          autoComplete="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
           required
         />
 
@@ -60,6 +65,16 @@ navigate(from, { replace: true });
           autoComplete="current-password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+          required
+        />
+
+        <input
+          className={styles.input}
+          type="tel"
+          placeholder="Phone Number"
+          autoComplete="tel"
+          value={phone_number}
+          onChange={(event) => setPhone_number(event.target.value)}
           required
         />
 
