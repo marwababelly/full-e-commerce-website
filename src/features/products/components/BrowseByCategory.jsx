@@ -4,16 +4,6 @@ import SectionHeader from "./SectionHeader";
 import ArrowButton from "./ArrowButton";
 import styles from "./BrowseByCategory.module.css";
 
-
-const iconMapping = {
-  "Camera": "📷",
-  "Cell Phone": "📱",
-  "Computer": "💻",
-  "Gamepad": "🎮",
-  "Headphone": "🎧",
-  "Smart Watch": "⌚"
-};
-
 const BrowseByCategory = ({ categories }) => {
   const scrollRef = useRef(null);
 
@@ -49,12 +39,12 @@ const BrowseByCategory = ({ categories }) => {
               key={category.id}
               className={styles.categoryCard}
             >
-            
-              <span className={styles.icon}>
-                {iconMapping[category.name] || (
-                  <img src={category.icon} alt={category.name} className={styles.categoryIcon} />
-                )}
-              </span>
+              
+              <img 
+                src={category.icon} 
+                alt={category.name} 
+                className={styles.categoryIcon} 
+              />
               <span className={styles.name}>{category.name}</span>
             </Link>
           ))}
