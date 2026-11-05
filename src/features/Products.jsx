@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-// المسارات دي لأننا جوه مجلد features مباشرة
-import ProductCard from "./Products/components/ProductCard";
+
+import ProductCard from "./products/components/ProductCard";
 import { getProducts } from "./Products/api/productsApi";
 import styles from "./Products.module.css";
 

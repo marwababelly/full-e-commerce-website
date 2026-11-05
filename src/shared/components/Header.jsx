@@ -1,18 +1,40 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../features/auth/context/AuthContext.jsx";
 import { useLanguage } from "../../context/LanguageContext";
+import { useCart } from "../../features/cart/CartContext"; // تأكدي من مسار السلة
 import styles from "./Header.module.css";
 
 const Header = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [isLangOpen, setIsLangOpen] = useState(false);
+  
+  const { isAuthenticated, logout } = useAuth();
   const { language, toggleLanguage, t } = useLanguage();
+  const { cartItems } = useCart(); // لجلب عدد المنتجات بالسلة
+  
+  const navigate = useNavigate();
+  const cartCount = cartItems?.length || 0;
 
   const navLinks = [
-    { to: "/", label: t.home },
-    { to: "/contact", label: t.contact },
-    { to: "/about", label: t.about },
-    { to: "/signup", label: language === "ar" ? "تسجيل الدخول" : "Sign Up" },
+    { to: "/", label: language === "ar" ? "الرئيسية" : "Home" },
+    { to: "/contact", label: language === "ar" ? "اتصل بنا" : "Contact" },
+    { to: "/about", label: language === "ar" ? "من نحن" : "About" },
+    { to: "/register", label: language === "ar" ? "تسجيل الدخول" : "Sign Up" },
   ];
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim() !== "") {
+      navigate(`/products?search=${searchTerm}`);
+      setSearchTerm(""); 
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   const handleLanguageChange = () => {
     toggleLanguage();
@@ -25,9 +47,9 @@ const Header = () => {
         <div className={styles.topBarContent}>
           <p className={styles.promo}>
             {language === "ar" 
-              ? "عرض الصيف لجميع ملابس السباحة وتوصيل سري مجاني - خصم 50%!" 
+              ? "عرض الصيف لجميع ملابس السباحة وتوصيل سريع مجاني - خصم 50%!" 
               : "Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!"}{" "}
-            <Link to="/shop" className={styles.promoLink}>
+            <Link to="/products" className={styles.promoLink}>
               {language === "ar" ? "تسوق الآن" : "ShopNow"}
             </Link>
           </p>
@@ -71,16 +93,18 @@ const Header = () => {
           </nav>
 
           <div className={styles.actions}>
-            <div className={styles.search}>
+            <form className={styles.search} onSubmit={handleSearch}>
               <input
                 type="text"
                 placeholder={language === "ar" ? "ما الذي تبحث عنه؟" : "What are you looking for?"}
                 className={styles.searchInput}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <button type="button" className={styles.searchButton} aria-label="Search">
+              <button type="submit" className={styles.searchButton} aria-label="Search">
                 🔍
               </button>
-            </div>
+            </form>
 
             <Link to="/wishlist" className={styles.iconButton} aria-label="Wishlist">♡</Link>
 
@@ -92,7 +116,9 @@ const Header = () => {
             {isAuthenticated ? (
               <>
                 <Link to="/account" className={styles.iconButton} aria-label="My Account">👤</Link>
-                <button type="button" className={styles.iconButton} onClick={handleLogout} aria-label="Log Out">Log Out</button>
+                <button type="button" className={styles.iconButton} onClick={handleLogout} aria-label="Log Out" style={{ fontSize: '12px', fontWeight: 'bold' }}>
+                  Log Out
+                </button>
               </>
             ) : (
               <Link to="/login" className={styles.iconButton} aria-label="Log In">Log In</Link>

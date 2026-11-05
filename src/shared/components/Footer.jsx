@@ -62,10 +62,10 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/shop" className={styles.link}>
-                  Shop
-                </Link>
-              </li>
+                  <Link to="/products" className={styles.link}>
+                    Shop
+                  </Link>
+                </li>
             </ul>
           </div>
 

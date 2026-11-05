@@ -1,48 +1,59 @@
-import { Axios } from "../../../Hooks/Axios"; // تأكدي من المسار (Hooks أو hooks)
+const BASE_URL = "https://ecommerce.monzeryshop.shop/api";
 
-const localImages = [
-  "/images/products/gamepad.jpg",
-  "/images/products/keyboard.jpg",
-  "/images/products/headphones.jpg",
-  "/images/products/smartwatch.jpg",
-  "/images/products/gamepad1.jpg",
-  "/images/products/gamepad2.jpg",
-];
+const mapProductData = (item) => {
+  if (!item) return null;
+  const originalPrice = Number(item.price) || 0;
+  const ratio = item.discount_ratio || 0;
+  const currentPrice = ratio > 0 ? originalPrice - (originalPrice * (ratio / 100)) : originalPrice;
+  const safeImageUrl = item.hero_image ? item.hero_image.replace(/ /g, '%20') : "";
 
-export const getProducts = async () => {
-  // الربط الحقيقي مع الـ API
-  const response = await Axios.get("https://fakestoreapi.com/products");
-  
-  return response.data.map((product, index) => {
-    return {
-      ...product,
-      image: localImages[index % localImages.length], // نستخدم صورك المحلية عشان تظهر
-      oldPrice: Math.round(product.price + 50),
-      discountPercent: (index % 3) * 10,
-      colors: ["#000000", "#db4444"],
-      sizes: ["S", "M", "L", "XL"],
-      inStock: true,
-      reviewsCount: product.rating?.count || 50,
-    };
-  });
-};
-
-export const getProductById = async (id) => {
-  const response = await Axios.get(`https://fakestoreapi.com/products/${id}`);
-  const product = response.data;
-  
   return {
-    ...product,
-    image: localImages[(id - 1) % localImages.length],
-    oldPrice: Math.round(product.price + 50),
-    colors: ["#000000", "#db4444"],
-    sizes: ["S", "M", "L", "XL"],
-    inStock: true,
-    reviewsCount: product.rating?.count || 50,
+    id: item.id,
+    title: item.name,
+    slug: item.slug,
+    price: currentPrice.toFixed(2),
+    oldPrice: ratio > 0 ? originalPrice.toFixed(2) : 0,
+    discountPercent: ratio,
+    rating: Number(item.reviews) || 0,
+    reviewsCount: item.reviews_count || 0,
+    image: safeImageUrl,
+    category: item.category,
+    colors: [], 
+    isNew: false, 
+    inStock: item.is_available === 1,
   };
 };
 
-export const getProductsByCategory = async (category) => {
-  const response = await Axios.get(`https://fakestoreapi.com/products/category/${category}`);
-  return response.data;
+export const getProducts = async () => {
+  const response = await fetch(`${BASE_URL}/products`);
+  const json = await response.json();
+  if (json.success && json.data) return json.data.map(mapProductData);
+  return [];
+};
+
+export const getProductById = async (id) => {
+  const response = await fetch(`${BASE_URL}/product/${id}`);
+  const json = await response.json();
+  if (json.success && json.data) {
+    const mappedProduct = mapProductData(json.data);
+    mappedProduct.description = json.data.description;
+    return mappedProduct;
+  }
+  return null;
+};
+
+export const getHomePageData = async () => {
+  const response = await fetch(`${BASE_URL}/HomePage`);
+  const json = await response.json();
+  if (json.success && json.data) {
+    return {
+      sliders: json.data.sliders,
+      categories: json.data.categories,
+      flashSales: json.data.product_with_active_sales.map(mapProductData),
+      bestSelling: json.data.most_reviewed_products.map(mapProductData),
+      explore: json.data.latest_products.map(mapProductData),
+      featured: json.data.featured_products.map(mapProductData),
+    };
+  }
+  return null;
 };

@@ -1,46 +1,55 @@
-import { useEffect, useState } from "react";
-import { getProducts } from "../api/productsApi";
+import { useMemo } from "react";
+import useAxiosGet from "../../../shared/Hooks/UseAxiosGet";
 
-/**
- * Custom hook to fetch all products.
- * Handles loading and error states.
- * @returns {{ products: Array, loading: boolean, error: Error|null }}
- */
+const mapProductData = (item) => {
+  if (!item) return null;
+  const originalPrice = Number(item.price) || 0;
+  const ratio = item.discount_ratio || 0;
+  const currentPrice = ratio > 0 ? originalPrice - (originalPrice * (ratio / 100)) : originalPrice;
+
+  
+  const safeImageUrl = item.hero_image 
+    ? item.hero_image.replace(/ /g, '%20') 
+    : "";
+
+  return {
+    id: item.id,
+    title: item.name,
+    slug: item.slug,
+    price: currentPrice.toFixed(2),
+    oldPrice: ratio > 0 ? originalPrice.toFixed(2) : 0,
+    discountPercent: ratio,
+    rating: Number(item.reviews) || 0,
+    reviewsCount: item.reviews_count || 0,
+    image: safeImageUrl, 
+    category: item.category,
+    colors: [], 
+    isNew: false, 
+    inStock: item.is_available === 1,
+  };
+};
+
+export const useHomePage = () => {
+  const { data, loading, error } = useAxiosGet("/HomePage");
+  const mappedData = useMemo(() => {
+    if (!data || !data.data) return null;
+    return {
+      sliders: data.data.sliders,
+      categories: data.data.categories,
+      flashSales: data.data.product_with_active_products ? data.data.product_with_active_products.map(mapProductData) : data.data.product_with_active_sales.map(mapProductData),
+      bestSelling: data.data.most_reviewed_products.map(mapProductData),
+      explore: data.data.latest_products.map(mapProductData),
+    };
+  }, [data]);
+
+  return { data: mappedData, loading, error };
+};
+
 export const useProducts = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-  console.log("useEffect ran");
-  let isMounted = true;
-
-  const fetchProducts = async () => {
-    console.log("fetchProducts start");
-    try {
-      setLoading(true);
-      const data = await getProducts();
-      console.log("data received:", data);
-      if (isMounted) {
-        setProducts(data);
-        setError(null);
-      }
-    } catch (err) {
-      console.log("error:", err);
-      if (isMounted) setError(err);
-    } finally {
-      console.log("finally, isMounted =", isMounted);
-      if (isMounted) setLoading(false);
-    }
-  };
-
-  fetchProducts();
-
-  return () => {
-    console.log("cleanup ran");
-    isMounted = false;
-  };
-}, []);
-
-  return { products, loading, error };
+  const { data, loading, error } = useAxiosGet("/products");
+  const mappedProducts = useMemo(() => {
+    if (!data || !data.data) return [];
+    return data.data.map(mapProductData);
+  }, [data]);
+  return { products: mappedProducts, loading, error };
 };

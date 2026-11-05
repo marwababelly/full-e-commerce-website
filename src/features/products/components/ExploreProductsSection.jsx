@@ -3,6 +3,7 @@ import SectionHeader from "./SectionHeader";
 import ProductCard from "./ProductCard";
 import ArrowButton from "./ArrowButton";
 import styles from "./ExploreProductsSection.module.css";
+import { Link } from "react-router-dom";
 
 const PRODUCTS_PER_PAGE = 8;
 
@@ -53,9 +54,10 @@ const ExploreProductsSection = ({ products }) => {
         </div>
 
         <div className={styles.buttonWrapper}>
-          <button type="button" className={styles.viewAllButton}>
-            View All Products
-          </button>
+          <Link to="/products" className={styles.viewAllButton}>
+        View All Products
+      </Link>
+
         </div>
       </div>
     </section>

@@ -1,6 +1,5 @@
 .card {
   width: 100%;
-  min-width: 220px; /* عشان ما ينضغطوا بزيادة */
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -11,7 +10,7 @@
   position: relative;
   width: 100%;
   height: 250px;
-  background-color: #f5f5f5; /* الخلفية الرمادية زي الفيجما */
+  background-color: #f5f5f5; 
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -179,6 +178,119 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 2px solid white;
-  box-shadow: 0 0 0 1px #ccc;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+
+.colorDot:hover {
+  border-color: #000000;
+}
+
+/* ============ RESPONSIVE ============ */
+
+@media (max-width: 768px) {
+  .card {
+    gap: 8px;
+  }
+
+  .imageWrapper {
+    height: 180px;
+  }
+
+  .image {
+    max-width: 75%;
+    max-height: 75%;
+  }
+
+  .discount,
+  .newBadge {
+    font-size: 10px;
+    padding: 3px 8px;
+    top: 8px;
+    left: 8px;
+  }
+
+  .actions {
+    top: 8px;
+    right: 8px;
+    gap: 4px;
+  }
+
+  .iconBtn {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
+
+  .addToCart {
+    height: 32px;
+    font-size: 11px;
+  }
+
+  .info {
+    gap: 4px;
+  }
+
+  .title {
+    font-size: 13px;
+  }
+
+  .price,
+  .oldPrice {
+    font-size: 13px;
+  }
+
+  .priceRow {
+    gap: 8px;
+  }
+
+  .rating {
+    gap: 4px;
+  }
+
+  .starFilled,
+  .starEmpty {
+    font-size: 11px;
+  }
+
+  .reviews {
+    font-size: 11px;
+  }
+
+  .colors {
+    gap: 6px;
+  }
+
+  .colorDot {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .imageWrapper {
+    height: 140px;
+  }
+
+  .title {
+    font-size: 12px;
+  }
+
+  .price,
+  .oldPrice {
+    font-size: 12px;
+  }
+
+  .discount,
+  .newBadge {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+
+  .iconBtn {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
 }

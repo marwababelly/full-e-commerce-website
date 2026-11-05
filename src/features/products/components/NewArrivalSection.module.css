@@ -73,40 +73,132 @@
   border-color: #db4444;
 }
 
-/* ترتيب البانرات عشان نطابق الفيجما */
-.bigCard {
-  grid-column: span 2;
-  grid-row: span 2;
-}
+/* ============ RESPONSIVE ============ */
 
-.wideCard {
-  grid-column: span 2;
-  grid-row: span 1;
-}
-
-/* الشاشات الصغيرة */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 200px);
+    grid-template-rows: auto;
+    grid-template-areas:
+      "large large"
+      "wide wide"
+      "small1 small2";
+    gap: 16px;
   }
-  .bigCard {
-    grid-column: span 2;
-    grid-row: span 1;
+
+  .large {
+    min-height: 400px;
   }
-  .wideCard {
-    grid-column: span 2;
+
+  .wide {
+    min-height: 250px;
+  }
+
+  .small {
+    min-height: 200px;
   }
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: 48px 0;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
   .grid {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    grid-template-areas:
+      "large"
+      "wide"
+      "small1"
+      "small2";
+    gap: 16px;
   }
-  .bigCard, .wideCard {
-    grid-column: span 1;
-    grid-row: span 1;
-    height: 250px;
+
+  .card {
+    min-height: 200px;
+  }
+
+  .large {
+    min-height: 280px;
+  }
+
+  .wide {
+    min-height: 200px;
+  }
+
+  .small {
+    min-height: 180px;
+  }
+
+  .overlay {
+    padding: 16px;
+    gap: 6px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .large .title {
+    font-size: 20px;
+  }
+
+  .small .title {
+    font-size: 16px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .shopNow {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 32px 0;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  .grid {
+    gap: 12px;
+  }
+
+  .card {
+    min-height: 160px;
+  }
+
+  .large {
+    min-height: 220px;
+  }
+
+  .wide {
+    min-height: 160px;
+  }
+
+  .small {
+    min-height: 150px;
+  }
+
+  .overlay {
+    padding: 12px;
+  }
+
+  .large .title {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    font-size: 11px;
   }
 }

@@ -1,34 +1,53 @@
-import { Smartphone, Monitor, Watch, Camera, Headphones, Gamepad2 } from "lucide-react";
-import styles from "./BrowseByCategory.module.css";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
 import SectionHeader from "./SectionHeader";
+import ArrowButton from "./ArrowButton";
+import styles from "./BrowseByCategory.module.css";
 
-const categories = [
-  { id: 1, name: "Phones", icon: Smartphone },
-  { id: 2, name: "Computers", icon: Monitor },
-  { id: 3, name: "SmartWatch", icon: Watch },
-  { id: 4, name: "Camera", icon: Camera },
-  { id: 5, name: "HeadPhones", icon: Headphones },
-  { id: 6, name: "Gaming", icon: Gamepad2 },
-];
+const BrowseByCategory = ({ categories }) => {
+  const scrollRef = useRef(null);
 
-const BrowseByCategory = () => {
+  if (!categories || categories.length === 0) return null;
+
+  const scroll = (direction) => {
+    if (!scrollRef.current) return;
+    const amount = 200;
+    scrollRef.current.scrollBy({
+      left: direction === "left" ? -amount : amount,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section className={styles.section}>
-      <SectionHeader title="Browse By Category" subtitle="Categories" />
-
-      <div className={styles.categoriesGrid}>
-        {categories.map((category) => {
-          const Icon = category.icon;
-          return (
-            <div
-              key={category.id}
-              className={`${styles.categoryCard} ${category.active ? styles.active : ""}`}
-            >
-              <Icon size={32} strokeWidth={1.5} />
-              <span className={styles.categoryName}>{category.name}</span>
+      <div className={styles.container}>
+        <SectionHeader
+          label="Categories"
+          title="Browse By Category"
+          rightSlot={
+            <div className={styles.arrows}>
+              <ArrowButton direction="left" onClick={() => scroll("left")} />
+              <ArrowButton direction="right" onClick={() => scroll("right")} />
             </div>
-          );
-        })}
+          }
+        />
+
+        <div className={styles.grid} ref={scrollRef}>
+          {categories.map((category) => (
+            <Link
+              to={`/products?filter=${category.slug}`}
+              key={category.id}
+              className={styles.categoryCard}
+            >
+              <img 
+                src={category.icon} 
+                alt={category.name} 
+                className={styles.categoryIcon} 
+              />
+              <span className={styles.name}>{category.name}</span>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

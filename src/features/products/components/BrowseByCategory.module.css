@@ -4,19 +4,80 @@
   padding: 0 20px;
 }
 
+<<<<<<< HEAD
+.arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.grid {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+  scrollbar-width: none;
+}
+
+.grid::-webkit-scrollbar {
+  display: none;
+=======
 .categoriesGrid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 30px;
   margin-top: 40px;
+>>>>>>> main
 }
 
 .categoryCard {
+  flex: 0 0 170px;
+  height: 145px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 16px;
+<<<<<<< HEAD
+  padding: 24px 16px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  font-family: inherit;
+  text-decoration: none;
+  color: #000000;
+}
+
+.categoryCard:hover {
+  background-color: #db4444;
+  border-color: #db4444;
+  color: #ffffff;
+}
+
+.icon {
+  font-size: 40px; 
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.categoryIcon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  transition: filter 0.2s;
+}
+
+.categoryCard:hover .categoryIcon {
+  filter: brightness(0) invert(1); 
+}
+
+.name {
+=======
   height: 145px;
   border: 1px solid #d1d1d1;
   border-radius: 4px;
@@ -27,10 +88,34 @@
 }
 
 .categoryName {
+>>>>>>> main
   font-size: 16px;
   font-weight: 500;
 }
 
+<<<<<<< HEAD
+@media (min-width: 1025px) {
+  .grid {
+    overflow-x: visible;
+  }
+
+  .categoryCard {
+    flex: 1 1 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 48px 0;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .grid {
+    gap: 16px;
+=======
 /* تأثير المرور بالماوس (Hover) */
 .categoryCard:hover {
   background-color: #db4444;
@@ -58,8 +143,24 @@
   .categoriesGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
+>>>>>>> main
   }
   .categoryCard {
+<<<<<<< HEAD
+    flex: 0 0 130px;
+    height: 110px;
+    padding: 16px 8px;
+    gap: 10px;
+  }
+
+  .icon {
+    font-size: 32px;
+  }
+
+  .name {
+    font-size: 13px;
+=======
     height: 120px;
+>>>>>>> main
   }
 }

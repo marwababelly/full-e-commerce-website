@@ -58,7 +58,6 @@
   margin: 0 0 12px 0;
 }
 
-/* Subscribe form */
 .subscribeForm {
   position: relative;
   display: flex;
@@ -79,6 +78,7 @@
   font-size: 14px;
   font-family: inherit;
   outline: none;
+  min-width: 0;
 }
 
 .emailInput::placeholder {
@@ -99,7 +99,6 @@
   color: #db4444;
 }
 
-/* Lists */
 .list {
   list-style: none;
   padding: 0;
@@ -120,7 +119,6 @@
   color: #db4444;
 }
 
-/* App section */
 .appSection {
   display: flex;
   gap: 10px;
@@ -168,7 +166,6 @@
   background-color: #222222;
 }
 
-/* Socials */
 .socials {
   display: flex;
   gap: 16px;
@@ -194,7 +191,6 @@
   color: #db4444;
 }
 
-/* Bottom bar */
 .bottomBar {
   border-top: 1px solid #1f1f1f;
   padding: 20px 0;
@@ -207,26 +203,107 @@
   margin: 0;
 }
 
-/* Responsive */
+/* ============ RESPONSIVE ============ */
+
 @media (max-width: 1024px) {
+  .footer {
+    padding-top: 60px;
+  }
+
   .grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    padding-bottom: 40px;
+  }
+
+  .heading,
+  .subheading {
+    font-size: 18px;
   }
 }
 
 @media (max-width: 768px) {
+  .footer {
+    padding-top: 40px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+    gap: 28px;
+    padding-bottom: 32px;
   }
-}
 
-@media (max-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .logo {
+    font-size: 20px;
+  }
+
+  .heading,
+  .subheading {
+    font-size: 16px;
+  }
+
+  .text,
+  .link {
+    font-size: 13px;
   }
 
   .subscribeForm {
     max-width: 100%;
+  }
+
+  .qrBox {
+    width: 65px;
+    height: 65px;
+  }
+
+  .storeBadge {
+    font-size: 9px;
+    padding: 5px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding-top: 32px;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-bottom: 24px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .heading,
+  .subheading {
+    font-size: 15px;
+  }
+
+  .text,
+  .link {
+    font-size: 12px;
+  }
+
+  .bottomBar {
+    padding: 16px 0;
+  }
+
+  .copyright {
+    font-size: 12px;
+  }
+
+  .socials {
+    gap: 12px;
   }
 }

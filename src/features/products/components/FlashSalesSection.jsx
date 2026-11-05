@@ -1,24 +1,49 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import styles from "./FlashSalesSection.module.css";
-import ProductCard from "./ProductCard";
 import SectionHeader from "./SectionHeader";
+import CountdownTimer from "./CountdownTimer";
+import ProductCard from "./ProductCard";
+import ArrowButton from "./ArrowButton";
+import styles from "./FlashSalesSection.module.css";
 
 const FlashSalesSection = ({ products, flashSaleEnd }) => {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    if (!scrollRef.current) return;
+    const amount = 300;
+    scrollRef.current.scrollBy({
+      left: direction === "left" ? -amount : amount,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section className={styles.section}>
-      <SectionHeader title="Flash Sales" endTime={flashSaleEnd} />
-      
-      <div className={styles.productsGrid}>
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-
-      {/* الزر اللي بينقلنا لصفحة المنتجات */}
-      <div className={styles.viewAllWrapper}>
-        <Link to="/products" className={styles.viewAllBtn}>
-          View All Products
-        </Link>
+      <div className={styles.container}>
+        <SectionHeader
+          label="Today's"
+          title="Flash Sales"
+          centerSlot={<CountdownTimer targetDate={flashSaleEnd} />}
+          rightSlot={
+            <div className={styles.arrows}>
+              <ArrowButton direction="left" onClick={() => scroll("left")} />
+              <ArrowButton direction="right" onClick={() => scroll("right")} />
+            </div>
+          }
+        />
+        <div className={styles.scroll} ref={scrollRef}>
+          {products?.map((product) => (
+            <div key={product.id} className={styles.item}>
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+        <div className={styles.buttonWrapper}>
+          <Link to="/products?filter=flash-sale" className={styles.viewAllButton}>
+            View All Products
+          </Link>
+        </div>
       </div>
     </section>
   );

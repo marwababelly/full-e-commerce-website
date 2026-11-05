@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import styles from "./ProductCard.module.css";
 import { formatPrice } from "../utils/formatPrice";
 import { useCart } from "../../cart/CartContext";
-// في حالة أن المجلد اسمه wishlist (بحرف صغير)
 import { useWishlist } from "../../WishlistContext";
 
 const Stars = ({ rating }) => {
