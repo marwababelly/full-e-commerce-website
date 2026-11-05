@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import SectionHeader from "./SectionHeader";
 import styles from "./NewArrivalSection.module.css";
 
-
 const arrivals = [
   {
     id: 1,
@@ -46,17 +45,8 @@ const NewArrivalSection = () => {
 
         <div className={styles.grid}>
           {arrivals.map((item) => (
-            <div
-              key={item.id}
-              className={`${styles.card} ${styles[item.size]}`}
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className={styles.image}
-                loading="lazy"
-              />
-
+            <div key={item.id} className={`${styles.card} ${styles[item.size]}`}>
+              <img src={item.image} alt={item.title} className={styles.image} loading="lazy" />
               <div className={styles.overlay}>
                 <h3 className={styles.title}>{item.title}</h3>
                 <p className={styles.subtitle}>{item.subtitle}</p>

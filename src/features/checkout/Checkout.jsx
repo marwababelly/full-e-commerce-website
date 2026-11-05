@@ -3,7 +3,7 @@ import styles from "./Checkout.module.css";
 import BillingForm from "./BillingForm";
 import OrderSummary from "./OrderSummary";
 import useAxiosPost from "../../hooks/UseAxiosPost";
-import { useCart } from "../Cart/CartContext";
+import { useCart } from "../cart/CartContext";
 
 const COUPONS = { SAVE10: 10, WELCOME: 15, VIP20: 20 };
 
@@ -11,13 +11,7 @@ export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState("bank");
   const [saveInfo, setSaveInfo] = useState(true);
   const [form, setForm] = useState({
-    firstName: "",
-    company: "",
-    street: "",
-    apartment: "",
-    city: "",
-    phone: "",
-    email: "",
+    firstName: "", company: "", street: "", apartment: "", city: "", phone: "", email: "",
   });
   const [coupon, setCoupon] = useState("");
   const [couponMsg, setCouponMsg] = useState("");
@@ -33,13 +27,11 @@ export default function Checkout() {
 
   const handleApplyCoupon = () => {
     const code = coupon.trim().toUpperCase();
-    
     if (!code) {
       setCouponMsg("Please enter a coupon code");
       setDiscount(0);
       return;
     }
-
     const percent = COUPONS[code];
     if (percent) {
       setDiscount((subtotal * percent) / 100);
@@ -52,19 +44,13 @@ export default function Checkout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     const payload = {
       title: `Order from ${form.firstName} ${form.company}`.trim(),
       body: `${form.street} ${form.apartment}, ${form.city} | ${form.phone} | ${form.email}`,
       payment: paymentMethod,
       coupon: coupon.trim().toUpperCase(),
-      discount,
-      items,
-      subtotal,
-      shipping,
-      total,
+      discount, items, subtotal, shipping, total,
     };
-    
     await postData(payload);
   };
 
@@ -84,27 +70,13 @@ export default function Checkout() {
     <div className={styles.checkoutContainer}>
       <h1 className={styles.checkoutTitle}>Billing Details</h1>
       <div className={styles.checkoutLayout}>
-        <BillingForm
-          form={form}
-          handleChange={handleChange}
-          saveInfo={saveInfo}
-          setSaveInfo={setSaveInfo}
-        />
+        <BillingForm form={form} handleChange={handleChange} saveInfo={saveInfo} setSaveInfo={setSaveInfo} />
         <OrderSummary
-          items={items}
-          subtotal={subtotal}
-          discount={discount}
-          shipping={shipping}
-          total={total}
-          paymentMethod={paymentMethod}
-          setPaymentMethod={setPaymentMethod}
-          coupon={coupon}
-          setCoupon={setCoupon}
-          couponMsg={couponMsg}
-          handleApplyCoupon={handleApplyCoupon}
-          handleSubmit={handleSubmit}
-          loading={loading}
-          error={error}
+          items={items} subtotal={subtotal} discount={discount} shipping={shipping} total={total}
+          paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod}
+          coupon={coupon} setCoupon={setCoupon} couponMsg={couponMsg}
+          handleApplyCoupon={handleApplyCoupon} handleSubmit={handleSubmit}
+          loading={loading} error={error}
         />
       </div>
     </div>

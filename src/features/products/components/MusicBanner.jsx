@@ -15,32 +15,25 @@ const MusicBanner = () => {
         <div className={styles.banner}>
           <div className={styles.content}>
             <span className={styles.label}>Categories</span>
-
             <h2 className={styles.title}>
               Enhance Your
               <br />
-              Nice Experience
+              Music Experience
             </h2>
-
             <div className={styles.timer}>
               {timerUnits.map((unit) => (
                 <div key={unit.id} className={styles.timerCircle}>
-                  <span className={styles.timerValue}>
-                    {String(unit.value).padStart(2, "0")}
-                  </span>
+                  <span className={styles.timerValue}>{String(unit.value).padStart(2, "0")}</span>
                   <span className={styles.timerLabel}>{unit.label}</span>
                 </div>
               ))}
             </div>
-
-            
             <Link to="/products?filter=computer" className={styles.buyNow}>
               Buy Now!
             </Link>
           </div>
 
           <div className={styles.imageWrapper}>
-           
             <img
               src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=600&auto=format&fit=crop"
               alt="Computer"

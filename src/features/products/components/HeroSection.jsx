@@ -8,19 +8,19 @@ const slides = [
     id: 1, 
     brand: "iPhone 14 Series", 
     title: "Up to 10% off Voucher", 
-    image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=800&auto=format&fit=crop" 
+    image: "https://images.unsplash.com/photo-1678652197831-2d180705cd2c?q=80&w=1200&auto=format&fit=crop",
   },
   { 
     id: 2, 
     brand: "PlayStation 5", 
     title: "New Console Available Now", 
-    image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=800&auto=format&fit=crop" 
+    image: "https://images.unsplash.com/photo-1622297845775-5ff3fef71d13?q=80&w=1200&auto=format&fit=crop",
   },
   { 
     id: 3, 
     brand: "Speakers", 
     title: "Wireless Sound Experience", 
-    image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?q=80&w=800&auto=format&fit=crop" 
+    image: "https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -47,7 +47,6 @@ const HeroSection = ({ categories }) => {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        
         <aside className={styles.sidebar}>
           <div className={styles.categoryHeader}>
             <span>Categories</span>
@@ -78,7 +77,9 @@ const HeroSection = ({ categories }) => {
                   <h2 className={styles.slideTitle}>{slide.title}</h2>
                   <Link to="/products" className={styles.shopNow}>Shop Now →</Link>
                 </div>
-                <img src={slide.image} alt={slide.title} className={styles.slideImage} />
+                <div className={styles.imageWrapper}>
+                  <img src={slide.image} alt={slide.title} className={styles.slideImage} />
+                </div>
               </div>
             ))}
           </div>

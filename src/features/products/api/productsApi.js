@@ -5,7 +5,6 @@ const mapProductData = (item) => {
   const originalPrice = Number(item.price) || 0;
   const ratio = item.discount_ratio || 0;
   const currentPrice = ratio > 0 ? originalPrice - (originalPrice * (ratio / 100)) : originalPrice;
-
   const safeImageUrl = item.hero_image ? item.hero_image.replace(/ /g, '%20') : "";
 
   return {
@@ -26,50 +25,35 @@ const mapProductData = (item) => {
 };
 
 export const getProducts = async () => {
-  try {
-    const response = await fetch(`${BASE_URL}/products`);
-    const json = await response.json();
-    if (json.success && json.data) {
-      return json.data.map(mapProductData);
-    }
-    return [];
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    throw error;
-  }
+  const response = await fetch(`${BASE_URL}/products`);
+  const json = await response.json();
+  if (json.success && json.data) return json.data.map(mapProductData);
+  return [];
 };
 
 export const getProductById = async (id) => {
-  try {
-    const response = await fetch(`${BASE_URL}/product/${id}`);
-    const json = await response.json();
-    if (json.success && json.data) {
-      const mappedProduct = mapProductData(json.data);
-      mappedProduct.description = json.data.description;
-      return mappedProduct;
-    }
-    return null;
-  } catch (error) {
-    throw error;
+  const response = await fetch(`${BASE_URL}/product/${id}`);
+  const json = await response.json();
+  if (json.success && json.data) {
+    const mappedProduct = mapProductData(json.data);
+    mappedProduct.description = json.data.description;
+    return mappedProduct;
   }
+  return null;
 };
 
 export const getHomePageData = async () => {
-  try {
-    const response = await fetch(`${BASE_URL}/HomePage`);
-    const json = await response.json();
-    if (json.success && json.data) {
-      return {
-        sliders: json.data.sliders,
-        categories: json.data.categories,
-        flashSales: json.data.product_with_active_sales.map(mapProductData),
-        bestSelling: json.data.most_reviewed_products.map(mapProductData),
-        explore: json.data.latest_products.map(mapProductData),
-        featured: json.data.featured_products.map(mapProductData),
-      };
-    }
-    return null;
-  } catch (error) {
-    throw error;
+  const response = await fetch(`${BASE_URL}/HomePage`);
+  const json = await response.json();
+  if (json.success && json.data) {
+    return {
+      sliders: json.data.sliders,
+      categories: json.data.categories,
+      flashSales: json.data.product_with_active_sales.map(mapProductData),
+      bestSelling: json.data.most_reviewed_products.map(mapProductData),
+      explore: json.data.latest_products.map(mapProductData),
+      featured: json.data.featured_products.map(mapProductData),
+    };
   }
+  return null;
 };

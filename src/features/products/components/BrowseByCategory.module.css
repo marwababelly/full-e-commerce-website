@@ -1,13 +1,10 @@
 .section {
-  padding: 80px 0;
-}
-
-.container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 80px auto;
   padding: 0 20px;
 }
 
+<<<<<<< HEAD
 .arrows {
   display: flex;
   gap: 8px;
@@ -24,6 +21,13 @@
 
 .grid::-webkit-scrollbar {
   display: none;
+=======
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+>>>>>>> main
 }
 
 .categoryCard {
@@ -34,6 +38,7 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
+<<<<<<< HEAD
   padding: 24px 16px;
   background-color: #ffffff;
   border: 1px solid #e5e5e5;
@@ -72,11 +77,23 @@
 }
 
 .name {
-  font-size: 16px;
-  font-weight: 500;
-  color: inherit;
+=======
+  height: 145px;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #000;
+  background-color: #fff;
+  transition: all 0.3s ease;
 }
 
+.categoryName {
+>>>>>>> main
+  font-size: 16px;
+  font-weight: 500;
+}
+
+<<<<<<< HEAD
 @media (min-width: 1025px) {
   .grid {
     overflow-x: visible;
@@ -98,9 +115,38 @@
 
   .grid {
     gap: 16px;
-  }
+=======
+/* تأثير المرور بالماوس (Hover) */
+.categoryCard:hover {
+  background-color: #db4444;
+  color: #fff;
+  border-color: #db4444;
+  box-shadow: 0 4px 14px rgba(219, 68, 68, 0.4);
+}
 
+/* المربع النشط (أحمر بشكل دائم) */
+.categoryCard.active {
+  background-color: #db4444;
+  color: #fff;
+  border-color: #db4444;
+  box-shadow: 0 4px 14px rgba(219, 68, 68, 0.4);
+}
+
+/* للشاشات الأصغر */
+@media (max-width: 1024px) {
+  .categoriesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .categoriesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+>>>>>>> main
+  }
   .categoryCard {
+<<<<<<< HEAD
     flex: 0 0 130px;
     height: 110px;
     padding: 16px 8px;
@@ -113,5 +159,8 @@
 
   .name {
     font-size: 13px;
+=======
+    height: 120px;
+>>>>>>> main
   }
 }

@@ -18,9 +18,6 @@ const FlashSalesSection = ({ products, flashSaleEnd }) => {
     });
   };
 
-  
-  const hasMoreThanThree = products && products.length > 3;
-
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -29,16 +26,12 @@ const FlashSalesSection = ({ products, flashSaleEnd }) => {
           title="Flash Sales"
           centerSlot={<CountdownTimer targetDate={flashSaleEnd} />}
           rightSlot={
-            
-            hasMoreThanThree && (
-              <div className={styles.arrows}>
-                <ArrowButton direction="left" onClick={() => scroll("left")} />
-                <ArrowButton direction="right" onClick={() => scroll("right")} />
-              </div>
-            )
+            <div className={styles.arrows}>
+              <ArrowButton direction="left" onClick={() => scroll("left")} />
+              <ArrowButton direction="right" onClick={() => scroll("right")} />
+            </div>
           }
         />
-
         <div className={styles.scroll} ref={scrollRef}>
           {products?.map((product) => (
             <div key={product.id} className={styles.item}>
@@ -46,7 +39,6 @@ const FlashSalesSection = ({ products, flashSaleEnd }) => {
             </div>
           ))}
         </div>
-
         <div className={styles.buttonWrapper}>
           <Link to="/products?filter=flash-sale" className={styles.viewAllButton}>
             View All Products

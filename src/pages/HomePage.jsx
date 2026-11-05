@@ -1,10 +1,10 @@
-import HeroSection from "../features/products/components/HeroSection";
-import FlashSalesSection from "../features/products/components/FlashSalesSection";
-import BrowseByCategory from "../features/products/components/BrowseByCategory";
+import HeroSection from "../features/Products/components/HeroSection";
+import FlashSalesSection from "../features/Products/components/FlashSalesSection";
+import BrowseByCategory from "../features/Products/components/BrowseByCategory";
 import BestSellingSection from "../features/products/components/BestSellingSection";
-import MusicBanner from "../features/products/components/MusicBanner";
+import MusicBanner from "../features/Products/components/MusicBanner";
 import ExploreProductsSection from "../features/products/components/ExploreProductsSection";
-import NewArrivalSection from "../features/products/components/NewArrivalSection";
+import NewArrivalSection from "../features/Products/components/NewArrivalSection";
 import ServicesSection from "../features/products/components/ServicesSection";
 import { useHomePage } from "../features/products/hooks/useProducts";
 import styles from "./HomePage.module.css";

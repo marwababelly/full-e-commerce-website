@@ -39,7 +39,6 @@ const BrowseByCategory = ({ categories }) => {
               key={category.id}
               className={styles.categoryCard}
             >
-              
               <img 
                 src={category.icon} 
                 alt={category.name} 

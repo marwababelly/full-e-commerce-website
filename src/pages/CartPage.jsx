@@ -3,11 +3,11 @@ import CartList from "../features/cart/components/cartList";
 import CartActions from "../features/cart/components/CartActions";
 import CouponForm from "../features/cart/components/CouponForm";
 import CartSummary from "../features/cart/components/CartSummary";
-import { useCart } from "../features/Cart/CartContext";
+import { useCart } from "../features/cart/CartContext";
 
 export default function CartPage() {
   const navigate = useNavigate();
-  const { subtotal, shipping } = useCart();
+  const { items, subtotal, shipping, updateQuantity, removeFromCart } = useCart();
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const updateCart = () => console.log("Cart updated");
@@ -22,14 +22,22 @@ export default function CartPage() {
   return (
     <div style={{ backgroundColor: "#ffffff", minHeight: "100vh", padding: "80px 0" }}>
       <div style={{ maxWidth: "1170px", margin: "0 auto", padding: "0 20px" }}>
-        <CartList />
+        
+        <CartList 
+          items={items} 
+          onUpdateQuantity={updateQuantity} 
+          onRemoveItem={removeFromCart} 
+        />
+
         <div style={{ marginTop: "24px", marginBottom: "80px" }}>
           <CartActions onBack={scrollToTop} onUpdate={updateCart} />
         </div>
+
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "30px" }}>
           <CouponForm onApply={applyCoupon} />
           <CartSummary subtotal={subtotal} shipping={shipping} onCheckout={proceedToCheckout} />
         </div>
+
       </div>
     </div>
   );

@@ -1,17 +1,15 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ProductCard.module.css";
 import { formatPrice } from "../utils/formatPrice";
+import { useCart } from "../../cart/CartContext";
+import { useWishlist } from "../../WishlistContext";
 
 const Stars = ({ rating }) => {
   const rounded = Math.round(rating);
   return (
     <div className={styles.stars}>
       {[1, 2, 3, 4, 5].map((i) => (
-        <span
-          key={i}
-          className={i <= rounded ? styles.starFilled : styles.starEmpty}
-        >
+        <span key={i} className={i <= rounded ? styles.starFilled : styles.starEmpty}>
           ★
         </span>
       ))}
@@ -20,7 +18,10 @@ const Stars = ({ rating }) => {
 };
 
 const ProductCard = ({ product }) => {
-  const [liked, setLiked] = useState(false);
+  const { addToCart } = useCart();
+  const { toggleWishlist, isInWishlist } = useWishlist();
+  
+  const liked = isInWishlist(product.id);
   const hasDiscount = product.discountPercent > 0;
 
   return (
@@ -36,31 +37,26 @@ const ProductCard = ({ product }) => {
           <button
             type="button"
             className={`${styles.iconBtn} ${liked ? styles.liked : ""}`}
-            onClick={() => setLiked((prev) => !prev)}
+            onClick={() => toggleWishlist(product)}
             aria-label="Add to wishlist"
           >
-            ♡
+            {liked ? "❤️" : "♡"}
           </button>
 
-          <Link
-            to={`/product/${product.id}`}
-            className={styles.iconBtn}
-            aria-label="View product"
-          >
+          <Link to={`/product/${product.id}`} className={styles.iconBtn} aria-label="View product">
             👁
           </Link>
         </div>
 
         <Link to={`/product/${product.id}`} className={styles.imageLink}>
-          <img
-            src={product.image}
-            alt={product.title}
-            className={styles.image}
-            loading="lazy"
-          />
+          <img src={product.image} alt={product.title} className={styles.image} />
         </Link>
 
-        <button type="button" className={styles.addToCart}>
+        <button 
+          type="button" 
+          className={styles.addToCart}
+          onClick={() => addToCart(product)}
+        >
           Add To Cart
         </button>
       </div>
@@ -73,9 +69,7 @@ const ProductCard = ({ product }) => {
         <div className={styles.priceRow}>
           <span className={styles.price}>{formatPrice(product.price)}</span>
           {product.oldPrice > 0 && (
-            <span className={styles.oldPrice}>
-              {formatPrice(product.oldPrice)}
-            </span>
+            <span className={styles.oldPrice}>{formatPrice(product.oldPrice)}</span>
           )}
         </div>
 
@@ -87,11 +81,7 @@ const ProductCard = ({ product }) => {
         {product.colors && product.colors.length > 0 && (
           <div className={styles.colors}>
             {product.colors.map((color, index) => (
-              <span
-                key={index}
-                className={styles.colorDot}
-                style={{ backgroundColor: color }}
-              />
+              <span key={index} className={styles.colorDot} style={{ backgroundColor: color }} />
             ))}
           </div>
         )}
