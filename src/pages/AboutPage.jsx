@@ -1,3 +1,5 @@
+import React from "react";
+import { useLanguage } from "../context/LanguageContext";
 import styles from "./AboutPage.module.css";
 import storyImg from "../features/auth/assets/about/2.jpg";
 import tomImg from "../features/auth/assets/about/1.jpg";
@@ -55,56 +57,47 @@ const ShieldIcon = () => (
   </svg>
 );
 
-const stats = [
-  { Icon: StoreIcon, value: "10.5k", label: "Sallers active our site" },
-  { Icon: MoneyIcon, value: "33k", label: "Monthly Product Sale" },
-  { Icon: BagIcon, value: "45.5k", label: "Customer active in our site" },
-  { Icon: DollarIcon, value: "25k", label: "Annual gross sale in our site" },
-];
-
-const team = [
-  { name: "Tom Cruise", role: "Founder & Chairman", img: tomImg },
-  { name: "Emma Watson", role: "Managing Director", img: emmaImg },
-  { name: "Will Smith", role: "Product Designer", img: willImg },
-];
-
-const features = [
-  {
-    Icon: TruckIcon,
-    title: "FREE AND FAST DELIVERY",
-    text: "Free delivery for all orders over $140",
-  },
-  {
-    Icon: SupportIcon,
-    title: "24/7 CUSTOMER SERVICE",
-    text: "Friendly 24/7 customer support",
-  },
-  {
-    Icon: ShieldIcon,
-    title: "MONEY BACK GUARANTEE",
-    text: "We return money within 30 days",
-  },
-];
-
 const AboutPage = () => {
+  const { t } = useLanguage();
+
+  const stats = [
+    { Icon: StoreIcon, value: "10.5k", label: t.activeSellers },
+    { Icon: MoneyIcon, value: "33k", label: t.monthlySale },
+    { Icon: BagIcon, value: "45.5k", label: t.activeCustomers },
+    { Icon: DollarIcon, value: "25k", label: t.annualSale },
+  ];
+
+  const team = [
+    { name: "Tom Cruise", role: t.founder, img: tomImg },
+    { name: "Emma Watson", role: t.managingDirector, img: emmaImg },
+    { name: "Will Smith", role: t.productDesigner, img: willImg },
+  ];
+
+  const features = [
+    {
+      Icon: TruckIcon,
+      title: t.freeDeliveryTitle,
+      text: t.freeDeliveryText,
+    },
+    {
+      Icon: SupportIcon,
+      title: t.supportTitle,
+      text: t.supportText,
+    },
+    {
+      Icon: ShieldIcon,
+      title: t.moneyBackTitle,
+      text: t.moneyBackText,
+    },
+  ];
+
   return (
     <div className={styles.page}>
-
       <section className={styles.story}>
         <div>
-          <h1>Our Story</h1>
-          <p>
-            Launched in 2015, Exclusive is South Asia's premier online shopping
-            marketplace with an active presence in Bangladesh. Supported by a
-            wide range of tailored marketing, data, and service solutions,
-            Exclusive has 10,500 sellers and 300 brands and serves 3 million
-            customers across the region.
-          </p>
-          <p>
-            Exclusive has more than 1 Million products to offer, growing at a
-            very fast pace. Exclusive offers a diverse assortment in categories
-            ranging from consumer goods to electronics.
-          </p>
+          <h1>{t.ourStoryTitle}</h1>
+          <p>{t.storyParagraph1}</p>
+          <p>{t.storyParagraph2}</p>
         </div>
         <img src={storyImg} alt="Our story" />
       </section>
