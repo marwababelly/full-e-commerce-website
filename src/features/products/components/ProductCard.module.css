@@ -1,40 +1,42 @@
 .card {
   width: 100%;
-  max-width: 270px;
+  min-width: 220px; /* عشان ما ينضغطوا بزيادة */
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+  cursor: pointer;
 }
 
 .imageWrapper {
   position: relative;
   width: 100%;
   height: 250px;
-  background-color: #f5f5f5;
+  background-color: #f5f5f5; /* الخلفية الرمادية زي الفيجما */
   border-radius: 4px;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .imageLink {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  text-decoration: none;
 }
 
 .image {
-  max-width: 80%;
-  max-height: 80%;
+  width: 80%;
+  height: 80%;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-.imageWrapper:hover .image {
-  transform: scale(1.05);
+.card:hover .image {
+  transform: scale(1.08);
 }
 
 .discount {
@@ -42,24 +44,11 @@
   top: 12px;
   left: 12px;
   background-color: #db4444;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 500;
+  color: white;
   padding: 4px 12px;
   border-radius: 4px;
-  z-index: 2;
-}
-
-.newBadge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background-color: #00ff66;
-  color: #000000;
   font-size: 12px;
   font-weight: 500;
-  padding: 4px 12px;
-  border-radius: 4px;
   z-index: 2;
 }
 
@@ -77,26 +66,24 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: white;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 18px;
   cursor: pointer;
-  font-size: 16px;
-  color: #000000;
-  transition: background-color 0.2s, color 0.2s;
-  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
 }
 
 .iconBtn:hover {
   background-color: #db4444;
-  color: #ffffff;
+  color: white;
 }
 
 .liked {
-  background-color: #db4444;
-  color: #ffffff;
+  color: #db4444;
 }
 
 .addToCart {
@@ -104,18 +91,20 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 41px;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: black;
+  color: white;
   border: none;
-  font-size: 14px;
+  padding: 12px;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+  opacity: 0;
   transform: translateY(100%);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.imageWrapper:hover .addToCart {
+.card:hover .addToCart {
+  opacity: 1;
   transform: translateY(0);
 }
 
@@ -128,41 +117,36 @@
 .title {
   font-size: 16px;
   font-weight: 500;
-  color: #000000;
+  color: #000;
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.title:hover {
-  color: #db4444;
-}
-
 .priceRow {
   display: flex;
-  gap: 12px;
   align-items: center;
+  gap: 12px;
 }
 
 .price {
+  color: #db4444;
   font-size: 16px;
   font-weight: 500;
-  color: #db4444;
 }
 
 .oldPrice {
+  color: #999;
   font-size: 16px;
-  font-weight: 500;
-  color: #000000;
-  opacity: 0.5;
   text-decoration: line-through;
+  font-weight: 500;
 }
 
 .rating {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 8px;
 }
 
 .stars {
@@ -172,35 +156,29 @@
 
 .starFilled {
   color: #ffad33;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .starEmpty {
-  color: #bfbfbf;
-  font-size: 14px;
+  color: #d1d1d1;
+  font-size: 16px;
 }
 
 .reviews {
+  color: #999;
   font-size: 14px;
-  font-weight: 600;
-  color: #7d7d7d;
 }
 
 .colors {
   display: flex;
   gap: 8px;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .colorDot {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  border: 2px solid transparent;
-  transition: border-color 0.2s;
-  cursor: pointer;
-}
-
-.colorDot:hover {
-  border-color: #000000;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px #ccc;
 }

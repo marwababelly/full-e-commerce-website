@@ -18,19 +18,19 @@ const slides = [
     id: 1,
     brand: "iPhone 14 Series",
     title: "Up to 10% off Voucher",
-    image: "https://picsum.photos/seed/iphone/800/400",
+    image: "https://images.unsplash.com/photo-1678652197831-2d180705cd2c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     id: 2,
     brand: "PlayStation 5",
     title: "New Console Available Now",
-    image: "https://picsum.photos/seed/ps5hero/800/400",
+    image: "https://images.unsplash.com/photo-1622297845775-5ff3fef71d13?q=80&w=1200&auto=format&fit=crop",
   },
   {
     id: 3,
     brand: "Speakers",
     title: "Wireless Sound Experience",
-    image: "https://picsum.photos/seed/speakerhero/800/400",
+    image: "https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -72,19 +72,21 @@ const HeroSection = () => {
               <div key={slide.id} className={styles.slide}>
                 <div className={styles.slideContent}>
                   <div className={styles.slideBrand}>
-                    <span className={styles.brandIcon}></span>
+                    <span className={styles.brandIcon}></span>
                     {slide.brand}
                   </div>
                   <h2 className={styles.slideTitle}>{slide.title}</h2>
                   <button type="button" className={styles.shopNow}>
-                    Shop Now →
+                    Shop Now <span>→</span>
                   </button>
                 </div>
-                <img
-                  src={slide.image}
-                  alt={slide.title}
-                  className={styles.slideImage}
-                />
+                <div className={styles.imageWrapper}>
+                  <img
+                    src={slide.image}
+                    alt={slide.title}
+                    className={styles.slideImage}
+                  />
+                </div>
               </div>
             ))}
           </div>

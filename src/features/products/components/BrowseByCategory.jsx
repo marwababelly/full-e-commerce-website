@@ -1,43 +1,34 @@
-import SectionHeader from "./SectionHeader";
-import ArrowButton from "./ArrowButton";
+import { Smartphone, Monitor, Watch, Camera, Headphones, Gamepad2 } from "lucide-react";
 import styles from "./BrowseByCategory.module.css";
+import SectionHeader from "./SectionHeader";
 
 const categories = [
-  { id: 1, name: "Phones", icon: "📱" },
-  { id: 2, name: "Computers", icon: "💻" },
-  { id: 3, name: "SmartWatch", icon: "⌚" },
-  { id: 4, name: "Camera", icon: "📷" },
-  { id: 5, name: "HeadPhones", icon: "🎧" },
-  { id: 6, name: "Gaming", icon: "🎮" },
+  { id: 1, name: "Phones", icon: Smartphone },
+  { id: 2, name: "Computers", icon: Monitor },
+  { id: 3, name: "SmartWatch", icon: Watch },
+  { id: 4, name: "Camera", icon: Camera },
+  { id: 5, name: "HeadPhones", icon: Headphones },
+  { id: 6, name: "Gaming", icon: Gamepad2 },
 ];
 
 const BrowseByCategory = () => {
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
-        <SectionHeader
-          label="Categories"
-          title="Browse By Category"
-          rightSlot={
-            <div className={styles.arrows}>
-              <ArrowButton direction="left" onClick={() => {}} />
-              <ArrowButton direction="right" onClick={() => {}} />
-            </div>
-          }
-        />
+      <SectionHeader title="Browse By Category" subtitle="Categories" />
 
-        <div className={styles.grid}>
-          {categories.map((category) => (
-            <button
+      <div className={styles.categoriesGrid}>
+        {categories.map((category) => {
+          const Icon = category.icon;
+          return (
+            <div
               key={category.id}
-              type="button"
-              className={styles.categoryCard}
+              className={`${styles.categoryCard} ${category.active ? styles.active : ""}`}
             >
-              <span className={styles.icon}>{category.icon}</span>
-              <span className={styles.name}>{category.name}</span>
-            </button>
-          ))}
-        </div>
+              <Icon size={32} strokeWidth={1.5} />
+              <span className={styles.categoryName}>{category.name}</span>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

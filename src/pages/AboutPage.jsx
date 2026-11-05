@@ -1,10 +1,7 @@
 import React from "react";
 import { useLanguage } from "../context/LanguageContext";
 import styles from "./AboutPage.module.css";
-import storyImg from "../features/auth/assets/about/2.jpg";
-import tomImg from "../features/auth/assets/about/1.jpg";
-import emmaImg from "../features/auth/assets/about/4.jpg";
-import willImg from "../features/auth/assets/about/3.jpg";
+import { statistics, team, storyImg, benefits } from "./aboutData";
 
 const StoreIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -99,49 +96,47 @@ const AboutPage = () => {
           <p>{t.storyParagraph1}</p>
           <p>{t.storyParagraph2}</p>
         </div>
-        <img src={storyImg} alt="Our story" />
+        <img src={storyImg} alt="Clothing and shopping store" className={styles.storyImg} />
       </section>
 
-      <section className={styles.stats}>
-        {stats.map(({ Icon, value, label }, i) => (
-          <div key={i} className={styles.stat}>
-            <div className={styles.statIcon}>
-              <Icon />
+      <section className={styles.statisticsGrid}>
+        {statistics.map(({ icon: Icon, value, label }) => (
+          <div key={label} className={styles.statCard}>
+            <div className={styles.iconWrapper}>
+              <div className={styles.iconInner}>
+                <Icon size={26} />
+              </div>
             </div>
-            <h3>{value}</h3>
+            <h2>{value}</h2>
             <p>{label}</p>
           </div>
         ))}
       </section>
 
-      <section className={styles.team}>
-        {team.map((m, i) => (
-          <div key={i} className={styles.member}>
-            <img src={m.img} alt={m.name} />
-            <h3>{m.name}</h3>
-            <p>{m.role}</p>
-            <div className={styles.social}>
-              <a>𝕏</a>
-              <a>📷</a>
-              <a>in</a>
+      <section className={styles.teamSection}>
+        {team.map((member) => (
+          <div key={member.name} className={styles.teamCard}>
+            <div className={styles.photo}>
+              <img src={member.image} alt={member.alt} loading="lazy" />
             </div>
+            <h3>{member.name}</h3>
+            <p>{member.role}</p>
           </div>
         ))}
       </section>
 
-      <section className={styles.features}>
-        {features.map(({ Icon, title, text }, i) => (
-          <div key={i}>
-            <div className={styles.featureIcon}>
-              <Icon />
+      {/* الميزات مدموجة هنا مباشرة */}
+      <section className={styles.benefitsGrid}>
+        {benefits.map(({ icon: Icon, title, description }) => (
+          <div key={title} className={styles.benefitCard}>
+            <div className={styles.iconWrapper}>
+              <Icon size={30} strokeWidth={1.8} />
             </div>
             <h3>{title}</h3>
-            <p>{text}</p>
+            <p>{description}</p>
           </div>
         ))}
       </section>
     </div>
   );
-};
-
-export default AboutPage;
+}

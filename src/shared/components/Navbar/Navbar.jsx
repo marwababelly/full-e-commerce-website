@@ -15,13 +15,11 @@ function Navbar() {
         ) {
             toggleLanguage();
         }
-        setIsLangOpen(true);
+        setIsLangOpen(false);
     };
 
     return (
         <header className={styles.headerContainer}>
-
-            {/* TOP BAR */}
             <div className={styles.topBar}>
                 <p className={styles.topBarText}>
                     {language === "ar" 
@@ -35,7 +33,7 @@ function Navbar() {
                <div
     className={styles.langSelector}
     onClick={(e) => {
-        e.stopPropagation(); // يمنع إغلاق القائمة أو تداخل الأحداث
+        e.stopPropagation(); 
         setIsLangOpen(!isLangOpen);
     }}
 >
@@ -71,7 +69,6 @@ function Navbar() {
             {/* MAIN NAVBAR */}
             <nav className={styles.navbar}>
 
-                {/* LOGO */}
                 <div className={styles.logo}>
                     Exclusive
                 </div>

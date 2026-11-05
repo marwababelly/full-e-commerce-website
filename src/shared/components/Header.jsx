@@ -57,18 +57,13 @@ const Header = () => {
 
       <div className={styles.main}>
         <div className={styles.mainContent}>
-          <Link to="/" className={styles.logo}>
-            Exclusive
-          </Link>
-
+          <Link to="/" className={styles.logo}>Exclusive</Link>
           <nav className={styles.nav}>
             {navLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
-                className={({ isActive }) =>
-                  isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
-                }
+                className={({ isActive }) => isActive ? `${styles.navLink} ${styles.active}` : styles.navLink}
               >
                 {link.label}
               </NavLink>
@@ -87,17 +82,21 @@ const Header = () => {
               </button>
             </div>
 
-            <Link to="/wishlist" className={styles.iconButton} aria-label="Wishlist">
-              ♡
-            </Link>
+            <Link to="/wishlist" className={styles.iconButton} aria-label="Wishlist">♡</Link>
 
-            <Link to="/cart" className={styles.iconButton} aria-label="Cart">
+            <Link to="/cart" className={styles.iconButton} aria-label="Cart" style={{ position: "relative" }}>
               🛒
+              {cartCount > 0 && <span className={styles.cartBadge}>{cartCount}</span>}
             </Link>
 
-            <Link to="/account" className={styles.iconButton} aria-label="Account">
-              👤
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Link to="/account" className={styles.iconButton} aria-label="My Account">👤</Link>
+                <button type="button" className={styles.iconButton} onClick={handleLogout} aria-label="Log Out">Log Out</button>
+              </>
+            ) : (
+              <Link to="/login" className={styles.iconButton} aria-label="Log In">Log In</Link>
+            )}
           </div>
         </div>
       </div>
