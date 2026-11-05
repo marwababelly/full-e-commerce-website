@@ -1,8 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../features/auth/context/AuthContext.jsx";
+import { useCart } from "../../features/cart/CartContext";
 import styles from "./Header.module.css";
-
-
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -13,12 +12,13 @@ const navLinks = [
 
 const Header = () => {
   const { isAuthenticated, logout } = useAuth();
-const navigate = useNavigate();
+  const { cartCount } = useCart();
+  const navigate = useNavigate();
 
-function handleLogout() {
-  logout();
-  navigate("/login");
-}
+  function handleLogout() {
+    logout();
+    navigate("/login");
+  }
 
   return (
     <header className={styles.header}>
@@ -26,11 +26,8 @@ function handleLogout() {
         <div className={styles.topBarContent}>
           <p className={styles.promo}>
             Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!{" "}
-            <Link to="/shop" className={styles.promoLink}>
-              ShopNow
-            </Link>
+            <Link to="/shop" className={styles.promoLink}>ShopNow</Link>
           </p>
-
           <button type="button" className={styles.language}>
             English <span className={styles.chevron}>▾</span>
           </button>
@@ -39,20 +36,13 @@ function handleLogout() {
 
       <div className={styles.main}>
         <div className={styles.mainContent}>
-          <Link to="/" className={styles.logo}>
-            Exclusive
-          </Link>
-
+          <Link to="/" className={styles.logo}>Exclusive</Link>
           <nav className={styles.nav}>
             {navLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
-                className={({ isActive }) =>
-                  isActive
-                    ? `${styles.navLink} ${styles.active}`
-                    : styles.navLink
-                }
+                className={({ isActive }) => isActive ? `${styles.navLink} ${styles.active}` : styles.navLink}
               >
                 {link.label}
               </NavLink>
@@ -61,64 +51,24 @@ function handleLogout() {
 
           <div className={styles.actions}>
             <div className={styles.search}>
-              <input
-                type="text"
-                placeholder="What are you looking for?"
-                className={styles.searchInput}
-              />
-
-              <button
-                type="button"
-                className={styles.searchButton}
-                aria-label="Search"
-              >
-                🔍
-              </button>
+              <input type="text" placeholder="What are you looking for?" className={styles.searchInput} />
+              <button type="button" className={styles.searchButton} aria-label="Search">🔍</button>
             </div>
 
-            <Link
-              to="/wishlist"
-              className={styles.iconButton}
-              aria-label="Wishlist"
-            >
-              ♡
-            </Link>
+            <Link to="/wishlist" className={styles.iconButton} aria-label="Wishlist">♡</Link>
 
-            <Link
-              to="/cart"
-              className={styles.iconButton}
-              aria-label="Cart"
-            >
+            <Link to="/cart" className={styles.iconButton} aria-label="Cart" style={{ position: "relative" }}>
               🛒
+              {cartCount > 0 && <span className={styles.cartBadge}>{cartCount}</span>}
             </Link>
 
             {isAuthenticated ? (
               <>
-                <Link
-                  to="/account"
-                  className={styles.iconButton}
-                  aria-label="My Account"
-                >
-                  👤
-                </Link>
-
-                <button
-                  type="button"
-                  className={styles.iconButton}
-                  onClick={handleLogout}
-                  aria-label="Log Out"
-                >
-                  Log Out
-                </button>
+                <Link to="/account" className={styles.iconButton} aria-label="My Account">👤</Link>
+                <button type="button" className={styles.iconButton} onClick={handleLogout} aria-label="Log Out">Log Out</button>
               </>
             ) : (
-              <Link
-                to="/login"
-                className={styles.iconButton}
-                aria-label="Log In"
-              >
-                Log In
-              </Link>
+              <Link to="/login" className={styles.iconButton} aria-label="Log In">Log In</Link>
             )}
           </div>
         </div>

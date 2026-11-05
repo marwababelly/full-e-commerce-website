@@ -1,132 +1,112 @@
 .section {
-  padding: 80px 0;
-}
-
-.container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 80px auto;
   padding: 0 20px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 30px;
-  grid-template-areas:
-    "large large wide wide"
-    "large large small1 small2";
+  grid-template-rows: repeat(2, 250px); /* ارتفاع ثابت للصفوف */
+  gap: 20px;
+  margin-top: 40px;
 }
 
 .card {
   position: relative;
+  background-color: #0d0d0d;
   border-radius: 4px;
   overflow: hidden;
-  background-color: #0d0d0d;
-  min-height: 284px;
-}
-
-.large {
-  grid-area: large;
-  min-height: 600px;
-}
-
-.wide {
-  grid-area: wide;
-}
-
-.small {
-  min-height: 284px;
-}
-
-.small:nth-of-type(1) {
-  grid-area: small1;
-}
-
-.small:nth-of-type(2) {
-  grid-area: small2;
-}
-
-.image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0.85;
-}
-
-.overlay {
-  position: relative;
-  z-index: 1;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: flex-start;
   padding: 24px;
-  gap: 8px;
-  color: #ffffff;
 }
 
-.title {
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* عشان الصورة تملأ الكارت */
+  opacity: 0.8; /* شفافية خفيفة عشان النص يبان */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+  opacity: 0.6;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+.content h3 {
   font-size: 24px;
   font-weight: 600;
-  color: #ffffff;
-  margin: 0;
+  margin: 0 0 8px 0;
 }
 
-.large .title {
-  font-size: 24px;
-}
-
-.small .title {
-  font-size: 20px;
-}
-
-.subtitle {
+.content p {
   font-size: 14px;
-  color: #d4d4d4;
-  margin: 0;
-  max-width: 90%;
+  margin: 0 0 16px 0;
+  opacity: 0.8;
+  max-width: 80%;
 }
 
 .shopNow {
-  margin-top: 8px;
-  background: none;
-  border: none;
-  color: #ffffff;
+  color: #fff;
   font-size: 14px;
   font-weight: 500;
-  text-decoration: underline;
-  padding: 0;
-  cursor: pointer;
-  transition: color 0.2s;
+  text-decoration: none;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 2px;
+  display: inline-block;
 }
 
 .shopNow:hover {
   color: #db4444;
+  border-color: #db4444;
 }
 
-@media (max-width: 1024px) {
+/* ترتيب البانرات عشان نطابق الفيجما */
+.bigCard {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.wideCard {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+/* الشاشات الصغيرة */
+@media (max-width: 992px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    grid-template-areas:
-      "large large"
-      "wide wide"
-      "small1 small2";
+    grid-template-rows: repeat(4, 200px);
+  }
+  .bigCard {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+  .wideCard {
+    grid-column: span 2;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
-    grid-template-areas:
-      "large"
-      "wide"
-      "small1"
-      "small2";
+    grid-template-rows: auto;
+  }
+  .bigCard, .wideCard {
+    grid-column: span 1;
+    grid-row: span 1;
+    height: 250px;
   }
 }

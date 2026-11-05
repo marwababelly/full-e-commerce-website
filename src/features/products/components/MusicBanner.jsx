@@ -38,8 +38,9 @@ const MusicBanner = () => {
           </div>
 
           <div className={styles.imageWrapper}>
+            {/* استبدلنا رابط picsum برابط صورة سبيكر حقيقية وثابتة */}
             <img
-              src="https://picsum.photos/seed/speakerbanner/600/500"
+              src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?q=80&w=800&auto=format&fit=crop"
               alt="Speaker"
               className={styles.image}
             />

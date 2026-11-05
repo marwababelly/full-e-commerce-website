@@ -1,37 +1,48 @@
-import products from "../mock/products.json";
+import { Axios } from "../../../Hooks/Axios"; // تأكدي من المسار (Hooks أو hooks)
 
-/**
- * Simulates a network delay.
- * @param {number} ms - Milliseconds to wait.
- */
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const localImages = [
+  "/images/products/gamepad.jpg",
+  "/images/products/keyboard.jpg",
+  "/images/products/headphones.jpg",
+  "/images/products/smartwatch.jpg",
+  "/images/products/gamepad1.jpg",
+  "/images/products/gamepad2.jpg",
+];
 
-/**
- * Fetches all products.
- * @returns {Promise<Array>} A promise that resolves to an array of products.
- */
 export const getProducts = async () => {
-  await delay(300);
-  return products;
+  // الربط الحقيقي مع الـ API
+  const response = await Axios.get("https://fakestoreapi.com/products");
+  
+  return response.data.map((product, index) => {
+    return {
+      ...product,
+      image: localImages[index % localImages.length], // نستخدم صورك المحلية عشان تظهر
+      oldPrice: Math.round(product.price + 50),
+      discountPercent: (index % 3) * 10,
+      colors: ["#000000", "#db4444"],
+      sizes: ["S", "M", "L", "XL"],
+      inStock: true,
+      reviewsCount: product.rating?.count || 50,
+    };
+  });
 };
 
-/**
- * Fetches a single product by its id.
- * @param {number|string} id - The product id.
- * @returns {Promise<Object|null>} The product or null if not found.
- */
 export const getProductById = async (id) => {
-  await delay(300);
-  const product = products.find((p) => p.id === Number(id));
-  return product || null;
+  const response = await Axios.get(`https://fakestoreapi.com/products/${id}`);
+  const product = response.data;
+  
+  return {
+    ...product,
+    image: localImages[(id - 1) % localImages.length],
+    oldPrice: Math.round(product.price + 50),
+    colors: ["#000000", "#db4444"],
+    sizes: ["S", "M", "L", "XL"],
+    inStock: true,
+    reviewsCount: product.rating?.count || 50,
+  };
 };
 
-/**
- * Fetches products filtered by category.
- * @param {string} category - The category name.
- * @returns {Promise<Array>} A promise that resolves to filtered products.
- */
 export const getProductsByCategory = async (category) => {
-  await delay(300);
-  return products.filter((p) => p.category === category);
+  const response = await Axios.get(`https://fakestoreapi.com/products/category/${category}`);
+  return response.data;
 };

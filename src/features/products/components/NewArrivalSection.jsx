@@ -1,65 +1,66 @@
-import SectionHeader from "./SectionHeader";
 import styles from "./NewArrivalSection.module.css";
-
-const arrivals = [
-  {
-    id: 1,
-    title: "PlayStation 5",
-    subtitle: "Black and White version of the PS5 coming out on sale.",
-    image: "https://picsum.photos/seed/ps5big/800/900",
-    size: "large",
-  },
-  {
-    id: 2,
-    title: "Women's Collections",
-    subtitle: "Featured woman collections that give you another vibe.",
-    image: "https://picsum.photos/seed/womenbig/800/500",
-    size: "wide",
-  },
-  {
-    id: 3,
-    title: "Speakers",
-    subtitle: "Amazon wireless speakers.",
-    image: "https://picsum.photos/seed/speakersmall/400/400",
-    size: "small",
-  },
-  {
-    id: 4,
-    title: "Perfume",
-    subtitle: "GUCCI INTENSE OUD EDP.",
-    image: "https://picsum.photos/seed/perfumesmall/400/400",
-    size: "small",
-  },
-];
+import SectionHeader from "./SectionHeader";
 
 const NewArrivalSection = () => {
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
-        <SectionHeader label="Featured" title="New Arrival" />
+      <SectionHeader title="New Arrival" subtitle="Featured" />
 
-        <div className={styles.grid}>
-          {arrivals.map((item) => (
-            <div
-              key={item.id}
-              className={`${styles.card} ${styles[item.size]}`}
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className={styles.image}
-                loading="lazy"
-              />
+      <div className={styles.grid}>
+        {/* البانر الكبير (PlayStation) */}
+        <div className={`${styles.card} ${styles.bigCard}`}>
+          <img
+            src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=800&auto=format&fit=crop"
+            alt="PlayStation 5"
+            className={styles.image}
+          />
+          <div className={styles.content}>
+            <h3>PlayStation 5</h3>
+            <p>Black and White version of the PS5 coming out on sale.</p>
+            <a href="#" className={styles.shopNow}>Shop Now</a>
+          </div>
+        </div>
 
-              <div className={styles.overlay}>
-                <h3 className={styles.title}>{item.title}</h3>
-                <p className={styles.subtitle}>{item.subtitle}</p>
-                <button type="button" className={styles.shopNow}>
-                  Shop Now
-                </button>
-              </div>
-            </div>
-          ))}
+        {/* البانر الطويل (Women's Collections) */}
+        <div className={`${styles.card} ${styles.wideCard}`}>
+          <img
+            src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=800&auto=format&fit=crop"
+            alt="Women's Collections"
+            className={styles.image}
+          />
+          <div className={styles.content}>
+            <h3>Women's Collections</h3>
+            <p>Featured women collections that give you another vibe.</p>
+            <a href="#" className={styles.shopNow}>Shop Now</a>
+          </div>
+        </div>
+
+        {/* البانر الصغير (Speakers) */}
+        <div className={styles.card}>
+          <img
+            src="https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=800&auto=format&fit=crop"
+            alt="Speakers"
+            className={styles.image}
+          />
+          <div className={styles.content}>
+            <h3>Speakers</h3>
+            <p>Amazon wireless speakers</p>
+            <a href="#" className={styles.shopNow}>Shop Now</a>
+          </div>
+        </div>
+
+        {/* البانر الصغير (Perfume) */}
+        <div className={styles.card}>
+          <img
+            src="https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800&auto=format&fit=crop"
+            alt="Perfume"
+            className={styles.image}
+          />
+          <div className={styles.content}>
+            <h3>Perfume</h3>
+            <p>GUCCI INTENSE OUD EDP</p>
+            <a href="#" className={styles.shopNow}>Shop Now</a>
+          </div>
         </div>
       </div>
     </section>
