@@ -1,11 +1,20 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
+import { useCart } from "../../features/cart/CartContext"; // 1. استيراد سياق السلة
 import styles from "./Header.module.css";
 
 const Header = () => {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const { language, toggleLanguage, t } = useLanguage();
+  
+  // 2. جلب العناصر من CartContext لحساب عدد منتجات السلة
+  const { items } = useCart();
+  const cartCount = items ? items.reduce((total, item) => total + item.count, 0) : 0;
+
+  // ملاحظة: إذا كان لديكِ متغيرات مثل isAuthenticated أو handleLogout معرفة مسبقاً في ملفكِ اتركيها، 
+  // وإن لم تكن معرفة يمكنك تعديلها أو ربطها بالـ AuthContext لاحقاً.
+  const isAuthenticated = false; // غيّريها حسب نظام المصادقة لديكِ إن وجد
 
   const navLinks = [
     { to: "/", label: t.home },
@@ -92,7 +101,7 @@ const Header = () => {
             {isAuthenticated ? (
               <>
                 <Link to="/account" className={styles.iconButton} aria-label="My Account">👤</Link>
-                <button type="button" className={styles.iconButton} onClick={handleLogout} aria-label="Log Out">Log Out</button>
+                <button type="button" className={styles.iconButton} aria-label="Log Out">Log Out</button>
               </>
             ) : (
               <Link to="/login" className={styles.iconButton} aria-label="Log In">Log In</Link>

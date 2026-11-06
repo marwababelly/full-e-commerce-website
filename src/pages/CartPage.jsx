@@ -4,10 +4,12 @@ import CartActions from "../features/cart/components/CartActions";
 import CouponForm from "../features/cart/components/CouponForm";
 import CartSummary from "../features/cart/components/CartSummary";
 import { useCart } from "../features/cart/CartContext";
+import { useLanguage } from "../context/LanguageContext"; // استيراد نظام اللغات
 
 export default function CartPage() {
   const navigate = useNavigate();
   const { items, subtotal, shipping, updateQuantity, removeFromCart } = useCart();
+  const { language } = useLanguage(); // استدعاء اللغة الحالية إن أردتِ استخدامها في العرض
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const updateCart = () => console.log("Cart updated");
@@ -20,7 +22,7 @@ export default function CartPage() {
   const proceedToCheckout = () => navigate("/checkout");
 
   return (
-    <div style={{ backgroundColor: "#ffffff", minHeight: "100vh", padding: "80px 0" }}>
+    <div style={{ backgroundColor: "#ffffff", minHeight: "100vh", padding: "80px 0", direction: language === "ar" ? "rtl" : "ltr" }}>
       <div style={{ maxWidth: "1170px", margin: "0 auto", padding: "0 20px" }}>
         
         <CartList 
@@ -33,7 +35,7 @@ export default function CartPage() {
           <CartActions onBack={scrollToTop} onUpdate={updateCart} />
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "30px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "30px", flexWrap: "wrap" }}>
           <CouponForm onApply={applyCoupon} />
           <CartSummary subtotal={subtotal} shipping={shipping} onCheckout={proceedToCheckout} />
         </div>

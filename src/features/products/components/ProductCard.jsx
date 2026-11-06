@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import styles from "./ProductCard.module.css";
 import { formatPrice } from "../utils/formatPrice";
 import { useCart } from "../../cart/CartContext";
-// في حالة أن المجلد اسمه wishlist (بحرف صغير)
-import { useWishlist } from "../../WishlistContext";
 
 const Stars = ({ rating }) => {
   const rounded = Math.round(rating);
@@ -20,9 +18,11 @@ const Stars = ({ rating }) => {
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
-  const { toggleWishlist, isInWishlist } = useWishlist();
   
-  const liked = isInWishlist(product.id);
+  // حماية مؤقتة في حال عدم وجود سياق المفضلة لمنع انهيار الصفحة
+  const liked = false; 
+  const toggleWishlist = () => console.log("Wishlist not configured yet");
+
   const hasDiscount = product.discountPercent > 0;
 
   return (
