@@ -1,48 +1,74 @@
-import { Axios } from "../../../Hooks/Axios"; // تأكدي من المسار (Hooks أو hooks)
-
-const localImages = [
-  "/images/products/gamepad.jpg",
-  "/images/products/keyboard.jpg",
-  "/images/products/headphones.jpg",
-  "/images/products/smartwatch.jpg",
-  "/images/products/gamepad1.jpg",
-  "/images/products/gamepad2.jpg",
-];
+import { Axios } from "../../../Hooks/Axios";
 
 export const getProducts = async () => {
-  // الربط الحقيقي مع الـ API
-  const response = await Axios.get("https://fakestoreapi.com/products");
-  
-  return response.data.map((product, index) => {
-    return {
-      ...product,
-      image: localImages[index % localImages.length], // نستخدم صورك المحلية عشان تظهر
-      oldPrice: Math.round(product.price + 50),
-      discountPercent: (index % 3) * 10,
-      colors: ["#000000", "#db4444"],
-      sizes: ["S", "M", "L", "XL"],
-      inStock: true,
-      reviewsCount: product.rating?.count || 50,
-    };
-  });
+  try {
+    const response = await Axios.get("products");
+    const resData = response.data;
+
+    let productsArray = [];
+    if (resData && resData.data) {
+      productsArray = Array.isArray(resData.data) ? resData.data : resData.data.data || [];
+    } else if (Array.isArray(resData)) {
+      productsArray = resData;
+    }
+
+    const imagesList = [
+      "/images/products/gamepad.jpg",
+      "/images/products/keyboard.jpg",
+      "/images/products/headphones.jpg",
+      "/images/products/smartwatch.jpg",
+      "/images/products/gamepad1.jpg",
+      "/images/products/gamepad2.jpg",
+      "/images/products/gamepad3.jpg",
+      "/images/products/gamepad4.jpg"
+    ];
+
+    return productsArray.map((product, index) => {
+      const localImage = imagesList[index % imagesList.length];
+      
+      return {
+        ...product,
+        image: product.image || product.image_url || localImage,
+        title: product.name || product.title || "Product",
+        id: product.id || index + 1,
+      };
+    });
+  } catch (error) {
+    console.error("API Error:", error);
+    return [];
+  }
 };
 
 export const getProductById = async (id) => {
-  const response = await Axios.get(`https://fakestoreapi.com/products/${id}`);
-  const product = response.data;
-  
-  return {
-    ...product,
-    image: localImages[(id - 1) % localImages.length],
-    oldPrice: Math.round(product.price + 50),
-    colors: ["#000000", "#db4444"],
-    sizes: ["S", "M", "L", "XL"],
-    inStock: true,
-    reviewsCount: product.rating?.count || 50,
-  };
-};
+  try {
+    const response = await Axios.get(`product/${id}`);
+    const resData = response.data;
+    let product = resData && resData.data ? resData.data : resData;
 
-export const getProductsByCategory = async (category) => {
-  const response = await Axios.get(`https://fakestoreapi.com/products/category/${category}`);
-  return response.data;
+    if (product) {
+      const imagesList = [
+        "/images/products/gamepad.jpg",
+        "/images/products/keyboard.jpg",
+        "/images/products/headphones.jpg",
+        "/images/products/smartwatch.jpg",
+        "/images/products/gamepad1.jpg",
+        "/images/products/gamepad2.jpg",
+        "/images/products/gamepad3.jpg",
+        "/images/products/gamepad4.jpg"
+      ];
+      
+      const localImage = imagesList[(Number(id) - 1) % imagesList.length] || "/images/products/gamepad.jpg";
+
+      return {
+        ...product,
+        image: product.image || product.image_url || localImage,
+        title: product.name || product.title || "Product",
+        id: product.id || Number(id),
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error("API Error:", error);
+    return null;
+  }
 };

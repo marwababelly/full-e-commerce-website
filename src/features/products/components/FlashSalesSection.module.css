@@ -1,45 +1,75 @@
 .section {
-  max-width: 1200px;
-  margin: 60px auto;
+  max-width: 1170px;
+  margin: 40px auto 80px;
   padding: 0 20px;
 }
 
+/* عنوان القسم (Flash Sales) */
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+
+.headerTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* الترتيب الجديد: العنوان والعداد جنب بعض */
+.titleRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 40px;
+  margin-top: 8px;
+}
+
+.headerTitle h2 {
+  font-size: 36px;
+  font-weight: 600;
+  margin: 0;
+  color: #000;
+  line-height: 1;
+}
+
+.headerSubtitle {
+  color: #db4444;
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerSubtitle::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 40px;
+  background-color: #db4444;
+  border-radius: 4px;
+}
+
+/* ترتيب الكروت (شبكة 4 أعمدة) */
 .productsGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 كروت في السطر */
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  margin-top: 40px;
 }
 
-/* للشاشات الأصغر */
-@media (max-width: 992px) {
-  .productsGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .productsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .productsGrid {
-    grid-template-columns: 1fr;
-  }
-}
+/* الزر الأحمر اللي تحت (View All Products) */
 .viewAllWrapper {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 60px;
+  margin-top: 60px;
 }
 
 .viewAllBtn {
   background-color: #db4444;
   color: #fff;
-  padding: 14px 48px;
+  padding: 16px 48px;
   border-radius: 4px;
   text-decoration: none;
   font-weight: 500;
@@ -49,4 +79,18 @@
 
 .viewAllBtn:hover {
   background-color: #b83838;
+}
+
+@media (max-width: 1024px) {
+  .productsGrid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .productsGrid { grid-template-columns: repeat(2, 1fr); }
+  .headerTitle h2 { font-size: 28px; }
+  .titleRow { flex-direction: column; align-items: flex-start; gap: 16px; } /* عشان الموبايل */
+}
+
+@media (max-width: 480px) {
+  .productsGrid { grid-template-columns: 1fr; }
 }

@@ -1,25 +1,40 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CartList from "../features/cart/components/cartList";
 import CartActions from "../features/cart/components/CartActions";
 import CouponForm from "../features/cart/components/CouponForm";
 import CartSummary from "../features/cart/components/CartSummary";
-import { useCart } from "../features/cart/CartContext";
-import { useLanguage } from "../context/LanguageContext"; // استيراد نظام اللغات
+import { useLanguage } from "../context/LanguageContext"; // حفظنا شغل زميلك
 
 export default function CartPage() {
   const navigate = useNavigate();
-  const { items, subtotal, shipping, updateQuantity, removeFromCart } = useCart();
-  const { language } = useLanguage(); // استدعاء اللغة الحالية إن أردتِ استخدامها في العرض
+  const [items, setItems] = useState([]);
+  const { language } = useLanguage(); // حفظنا ميزة اللغة
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-  const updateCart = () => console.log("Cart updated");
-  
-  const applyCoupon = (code) => {
-    const validCoupons = { SAVE10: 10, WELCOME: 15, VIP20: 20 };
-    return Boolean(validCoupons[code.toUpperCase()]);
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setItems(savedCart);
+  }, []);
+
+  const removeFromCart = (id) => {
+    const updatedCart = items.filter((item) => item.id !== id);
+    setItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event("cartUpdated")); 
   };
-  
-  const proceedToCheckout = () => navigate("/checkout");
+
+  const updateQuantity = (id, amount) => {
+    const updatedCart = items.map((item) =>
+      item.id === id ? { ...item, count: Math.max(1, item.count + amount) } : item
+    );
+    setItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event("cartUpdated")); 
+  };
+
+  const subtotal = items.reduce((sum, item) => sum + item.price * item.count, 0);
+  const shipping = 0;
 
   return (
     <div style={{ backgroundColor: "#ffffff", minHeight: "100vh", padding: "80px 0", direction: language === "ar" ? "rtl" : "ltr" }}>
@@ -32,12 +47,15 @@ export default function CartPage() {
         />
 
         <div style={{ marginTop: "24px", marginBottom: "80px" }}>
-          <CartActions onBack={scrollToTop} onUpdate={updateCart} />
+          <CartActions 
+            onBack={() => navigate("/")} 
+            onUpdate={() => window.dispatchEvent(new Event("cartUpdated"))} 
+          />
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "30px", flexWrap: "wrap" }}>
-          <CouponForm onApply={applyCoupon} />
-          <CartSummary subtotal={subtotal} shipping={shipping} onCheckout={proceedToCheckout} />
+          <CouponForm onApply={(code) => console.log(code)} />
+          <CartSummary subtotal={subtotal} shipping={shipping} onCheckout={() => navigate("/checkout")} />
         </div>
 
       </div>

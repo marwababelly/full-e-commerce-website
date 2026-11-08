@@ -14,6 +14,7 @@ const privateAxios = axios.create({
 const Axios = axios.create({
   baseURL,
   headers: {
+    "Content-Type": "application/json",
     "Accept-Language": lang,
   },
 });
@@ -21,11 +22,19 @@ const Axios = axios.create({
 privateAxios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+Axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => Promise.reject(error)

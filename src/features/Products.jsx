@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 // المسارات دي لأننا جوه مجلد features مباشرة
 import ProductCard from "./Products/components/ProductCard";
-import { getProducts } from "./Products/api/productsApi";
+import { getProducts } from "./products/api/productsApi";
 import styles from "./Products.module.css";
 
 export default function Products() {

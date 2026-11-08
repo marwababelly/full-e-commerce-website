@@ -1,108 +1,79 @@
-.wrapper {
-    display: grid;
-    grid-template-columns: 90px minmax(0, 1fr);
-    gap: 24px;
-    width: 100%;
-    min-width: 0;
-    align-items: start;
+.galleryContainer {
+  display: flex;
+  gap: 20px; /* مسافة بين الصور الصغيرة والكبيرة */
+  align-items: flex-start;
 }
 
+/* حاوية الصور المصغرة */
 .thumbnails {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.thumb {
-    width: 90px;
-    height: 90px;
-    flex-shrink: 0;
-    padding: 8px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    background: #f5f5f5;
-    cursor: pointer;
-    transition: border-color 0.2s ease;
+/* الصورة المصغرة */
+.thumbnailBox {
+  width: 170px;
+  height: 138px; /* مقاس مطابق للفيجما */
+  background-color: #f5f5f5; /* خلفية رمادية */
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  overflow: hidden; /* عشان الصورة ما تطلع برا المربع */
 }
 
-.thumb:hover {
-    border-color: #bdbdbd;
+.thumbnailBox img {
+  width: 85%;
+  height: 85%;
+  object-fit: contain; /* تظهر الصورة كاملة */
 }
 
-.thumb img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+/* الإطار الأحمر للصورة النشطة */
+.activeThumb {
+  border: 2px solid #db4444; 
 }
 
-.active {
-    border: 2px solid #db4444;
-    background: #fff;
+/* حاوية الصورة الكبيرة */
+.mainImageBox {
+  width: 500px;
+  height: 600px;
+  background-color: #f5f5f5; /* خلفية رمادية زي الفيجما */
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mainImage {
-    width: 100%;
-    min-width: 0;
-    aspect-ratio: 1 / 1;
-    box-sizing: border-box;
-    padding: 24px;
-    background: #f5f5f5;
-    border-radius: 4px;
-    display: flex;
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
+}
+
+/* للشاشات الصغيرة (الموبايل) */
+@media (max-width: 992px) {
+  .galleryContainer {
+    flex-direction: column-reverse;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.mainImage img {
-    display: block;
+  }
+  .thumbnails {
+    flex-direction: row;
+    overflow-x: auto;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: transform 0.2s ease;
-}
-
-@media (max-width: 768px) {
-    .wrapper {
-        grid-template-columns: 72px minmax(0, 1fr);
-        gap: 16px;
-    }
-    .thumb {
-        width: 72px;
-        height: 72px;
-        padding: 6px;
-    }
-    .thumbnails {
-        gap: 12px;
-    }
-    .mainImage {
-        padding: 16px;
-    }
-}
-
-@media (max-width: 560px) {
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-    }
-    .mainImage {
-        order: 1;
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        padding: 20px;
-    }
-    .thumbnails {
-        order: 2;
-        width: 100%;
-        flex-direction: row;
-        gap: 10px;
-        overflow-x: auto;
-        padding-bottom: 6px;
-    }
-    .thumb {
-        width: 68px;
-        height: 68px;
-    }
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .thumbnailBox {
+    width: 100px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+  .mainImageBox {
+    width: 100%;
+    height: 400px;
+  }
 }

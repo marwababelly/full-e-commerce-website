@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ProductCard.module.css";
 import { formatPrice } from "../utils/formatPrice";
+import { useWishlist } from "../../WishlistContext";
+import { Axios } from "../../../Hooks/Axios";
 import { useCart } from "../../cart/CartContext";
 
 const Stars = ({ rating }) => {
@@ -17,21 +21,67 @@ const Stars = ({ rating }) => {
 };
 
 const ProductCard = ({ product }) => {
+  const { toggleWishlist, isInWishlist } = useWishlist();
   const { addToCart } = useCart();
-  
-  // حماية مؤقتة في حال عدم وجود سياق المفضلة لمنع انهيار الصفحة
-  const liked = false; 
-  const toggleWishlist = () => console.log("Wishlist not configured yet");
-
+  const [isAdding, setIsAdding] = useState(false);
+  const liked = isInWishlist(product.id);
   const hasDiscount = product.discountPercent > 0;
+
+  const handleAddToCart = async (e) => {
+    e.preventDefault();
+    
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login first to add to cart.");
+      return;
+    }
+
+    setIsAdding(true);
+
+    try {
+      // 1. إرسال المنتج للسيرفر (نفس طريقة الـ Postman)
+      const formData = new FormData();
+      formData.append("product_id", product.id);
+      formData.append("quantity", 1);
+
+      await Axios.post("add-to-cart", formData, {
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      // 2. الحفظ في المتصفح عشان السلة تعرض الداتا
+      const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existingItem = savedCart.find((item) => item.id === product.id);
+      
+      let updatedCart;
+      if (existingItem) {
+        updatedCart = savedCart.map((item) =>
+          item.id === product.id ? { ...item, count: item.count + 1 } : item
+        );
+      } else {
+        updatedCart = [...savedCart, { ...product, count: 1 }];
+      }
+
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      
+      // 3. تحديث الهيدر
+      window.dispatchEvent(new Event("cartUpdated"));
+      
+    } catch (error) {
+      console.error("Failed to add to cart:", error.response || error);
+      alert("Failed to add to cart. Please try again.");
+    } finally {
+      setIsAdding(false);
+    }
+  };
 
   return (
     <article className={styles.card}>
       <div className={styles.imageWrapper}>
-        {hasDiscount && (
-          <span className={styles.discount}>-{product.discountPercent}%</span>
-        )}
-
+        {hasDiscount && <span className={styles.discount}>-{product.discountPercent}%</span>}
         {product.isNew && <span className={styles.newBadge}>NEW</span>}
 
         <div className={styles.actions}>
@@ -55,10 +105,11 @@ const ProductCard = ({ product }) => {
 
         <button 
           type="button" 
-          className={styles.addToCart}
-          onClick={() => addToCart(product)}
+          className={styles.addToCart} 
+          onClick={handleAddToCart}
+          disabled={isAdding}
         >
-          Add To Cart
+          {isAdding ? "Adding..." : "Add To Cart"}
         </button>
       </div>
 
@@ -69,9 +120,7 @@ const ProductCard = ({ product }) => {
 
         <div className={styles.priceRow}>
           <span className={styles.price}>{formatPrice(product.price)}</span>
-          {product.oldPrice > 0 && (
-            <span className={styles.oldPrice}>{formatPrice(product.oldPrice)}</span>
-          )}
+          {product.oldPrice > 0 && <span className={styles.oldPrice}>{formatPrice(product.oldPrice)}</span>}
         </div>
 
         <div className={styles.rating}>

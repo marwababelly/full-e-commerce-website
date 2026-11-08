@@ -1,4 +1,4 @@
-
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState } from "react";
 import { loginUser } from "../api/authApi.js";
 
@@ -17,11 +17,15 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(getSavedUser);
 
   const login = async (credentials) => {
-    const result = await loginUser(credentials);
+    
+    const payload = {
+      email: credentials.email,
+      password: credentials.password,
+    };
+    const result = await loginUser(payload);
 
     const userData = result.data.user;
     const token = result.data.access_token;
-
     localStorage.setItem("authUser", JSON.stringify(userData));
     localStorage.setItem("token", token);
 
